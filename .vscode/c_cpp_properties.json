@@ -1,0 +1,22 @@
+{
+    "configurations": [
+        {
+            "name": "Win32",
+            "includePath": [
+                "${workspaceFolder}/include/**",
+                "${VULKAN_SDK}/Include/",
+                "${workspaceFolder}/src"
+            ],
+            "defines": [
+                "DEBUG",
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE"
+            ],
+            "windowsSdkVersion": "10.0.22621.0",
+            "cStandard": "c23",
+            "cppStandard": "c++23"
+        }
+    ],
+    "version": 4
+}

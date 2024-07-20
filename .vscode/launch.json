@@ -1,0 +1,14 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Proj. Launch",
+            "program": "${workspaceFolder}/engine.exe",
+            "type": "cppdbg",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "externalConsole": true,
+            "stopAtEntry": false
+        }
+    ]
+}
