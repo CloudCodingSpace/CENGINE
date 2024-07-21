@@ -6,8 +6,8 @@ void engine_initialize(engine *engine) {
     engine->window.title = "CENGINE";
     window_initialize(&engine->window);
 
-    renderer_initialize(&engine->renderer, engine->window.window);
-}   
+    renderer_initialize(&engine->renderer, &engine->window);
+}
 
 void engine_update(engine *engine) {
     window_update(&engine->window);
@@ -15,7 +15,7 @@ void engine_update(engine *engine) {
 }
 
 void engine_render(engine *engine) {
-    renderer_render(&engine->renderer);
+    renderer_render(&engine->renderer, &engine->window);
 }
 
 void engine_run(engine *engine) {

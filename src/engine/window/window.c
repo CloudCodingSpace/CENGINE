@@ -1,6 +1,8 @@
 #include "window.h"
 
 void window_initialize(window* window) {
+    window->resized = false;
+
     if(!glfwInit())
         FATAL("Failed to initialize glfw!")
     if(!glfwVulkanSupported())
@@ -8,15 +10,16 @@ void window_initialize(window* window) {
 
     glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
     glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
-    glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
 
     window->window = glfwCreateWindow(window->width, window->height, window->title, NULL, NULL);
     if(!window->window)
         FATAL("Failed to create the window!")
+    glfwSetWindowUserPointer(window->window, window);
+    glfwSetFramebufferSizeCallback(window->window, window_resize_callback);
 }
 
 void window_update(window *window) {
-    glfwGetFramebufferSize(window->window, &window->width, &window->height);
+    
     glfwPollEvents();
 }
 
@@ -31,4 +34,11 @@ void window_shutdown(window* window) {
 
 bool window_is_close_button_pressed(window *window) {
     return glfwWindowShouldClose(window->window);
+}
+
+void window_resize_callback(GLFWwindow *win, int width, int height) {
+    window* window = glfwGetWindowUserPointer(win);
+    window->width = width;
+    window->height = height;
+    window->resized = true;
 }

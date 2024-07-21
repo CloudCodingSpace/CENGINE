@@ -11,6 +11,8 @@
 void check_vk_result(VkResult result, uint32_t lineNum, const char* funcName, const char* fileName);
 uint32_t clamp_uint(uint32_t n, uint32_t min, uint32_t max);
 
+#define MAX_FRAMES_IN_FLIGHT 2
+
 #define VK_CHECK(result) check_vk_result(result, __LINE__, __func__, __FILE__);
 #define ARR_SIZE(arr) (sizeof((arr))/sizeof((arr[0])))
 #define MAX(a, b) ((a > b) ? (a) : (b)) 

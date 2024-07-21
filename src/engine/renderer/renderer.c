@@ -1,20 +1,24 @@
 #include "renderer.h"
 
-void renderer_initialize(renderer *renderer, GLFWwindow* win_ptr) {
-    renderer_backend_initialize(&renderer->backend, win_ptr);
+void renderer_initialize(renderer* renderer, window* window) {
+    renderer->crntFrame = 0;
+
+    renderer_backend_initialize(&renderer->backend, window->window);
     create_cmd_pool(&renderer->cmdPool, &renderer->backend.device);
-    renderer->cmdBuff = create_command_buff(renderer->cmdPool, &renderer->backend.device);
-    create_semaphore(&renderer->imgAvailableSema, &renderer->backend.device);
-    create_semaphore(&renderer->renderFinishedSema, &renderer->backend.device);
-    create_fence(&renderer->inFlight, &renderer->backend.device);
+    for(int i = 0; i < MAX_FRAMES_IN_FLIGHT; i++) {
+        renderer->cmdBuffs[i] = create_command_buff(renderer->cmdPool, &renderer->backend.device);
+        create_semaphore(&renderer->imgAvailableSemas[i], &renderer->backend.device);
+        create_semaphore(&renderer->renderFinishedSemas[i], &renderer->backend.device);
+        create_fence(&renderer->inFlights[i], &renderer->backend.device);
+    }
 }
 
-void renderer_update(renderer *renderer) {
+void renderer_update(renderer* renderer) {
 
 }
 
-void renderer_record_render_cmds(renderer *renderer, uint32_t imgIdx) {
-    begin_cmd_buff(&renderer->backend.device, &renderer->cmdBuff);
+void renderer_record_render_cmds(renderer* renderer, uint32_t imgIdx) {
+    begin_cmd_buff(&renderer->backend.device, &renderer->cmdBuffs[renderer->crntFrame]);
 
     VkClearValue clear = {{0.1f, 0.1f, 0.1f, 1.0f}};
     VkFramebuffer buff = renderer->backend.buffs[imgIdx];
@@ -27,22 +31,32 @@ void renderer_record_render_cmds(renderer *renderer, uint32_t imgIdx) {
         .renderArea.extent = renderer->backend.sc.extent,
         .renderPass = renderer->backend.pass.pass
     };
-    vkCmdBeginRenderPass(renderer->cmdBuff, &passBegin, VK_SUBPASS_CONTENTS_INLINE);
+    vkCmdBeginRenderPass(renderer->cmdBuffs[renderer->crntFrame], &passBegin, VK_SUBPASS_CONTENTS_INLINE);
     
 
     
-    vkCmdEndRenderPass(renderer->cmdBuff);
-    end_cmd_buff(&renderer->cmdBuff);
+    vkCmdEndRenderPass(renderer->cmdBuffs[renderer->crntFrame]);
+    end_cmd_buff(&renderer->cmdBuffs[renderer->crntFrame]);
 }
 
-void renderer_render(renderer *renderer) {
-    vkWaitForFences(renderer->backend.device.logical, 1, &renderer->inFlight, VK_TRUE, UINT64_MAX);
-    vkResetFences(renderer->backend.device.logical, 1, &renderer->inFlight);
+void renderer_render(renderer* renderer, window* window) {
+    VK_CHECK(vkWaitForFences(renderer->backend.device.logical, 1, &renderer->inFlights[renderer->crntFrame], VK_TRUE, UINT64_MAX))
+    VK_CHECK(vkResetFences(renderer->backend.device.logical, 1, &renderer->inFlights[renderer->crntFrame]))
 
     uint32_t imgIdx;
-    VK_CHECK(vkAcquireNextImageKHR(renderer->backend.device.logical, renderer->backend.sc.swapchain, UINT64_MAX, renderer->imgAvailableSema, VK_NULL_HANDLE, &imgIdx))
+    VkResult result = vkAcquireNextImageKHR(renderer->backend.device.logical, renderer->backend.sc.swapchain, UINT64_MAX, renderer->imgAvailableSemas[renderer->crntFrame], VK_NULL_HANDLE, &imgIdx);
+    if(result == VK_ERROR_OUT_OF_DATE_KHR) {
+        renderer_backend_handle_resize(&renderer->backend, window->window);
+        return;
+    }
+    if(result != VK_SUCCESS && result != VK_SUBOPTIMAL_KHR) {
+        char* msg = "VkResult is %s (line: %d, function: %s, file: %s)";
+        FATAL(msg, string_VkResult(result), __LINE__, __func__, __FILE__);
+    }
 
-    VK_CHECK(vkResetCommandBuffer(renderer->cmdBuff, 0))
+    VK_CHECK(vkResetFences(renderer->backend.device.logical, 1, &renderer->inFlights[renderer->crntFrame]))
+
+    VK_CHECK(vkResetCommandBuffer(renderer->cmdBuffs[renderer->crntFrame], 0))
     renderer_record_render_cmds(renderer, imgIdx);
 
     VkPipelineStageFlags waitStages[] = {
@@ -52,15 +66,15 @@ void renderer_render(renderer *renderer) {
     VkSubmitInfo submitInfo = {
         .sType = VK_STRUCTURE_TYPE_SUBMIT_INFO,
         .waitSemaphoreCount = 1,
-        .pWaitSemaphores = &renderer->imgAvailableSema,
+        .pWaitSemaphores = &renderer->imgAvailableSemas[renderer->crntFrame],
         .signalSemaphoreCount = 1,
-        .pSignalSemaphores = &renderer->renderFinishedSema,
+        .pSignalSemaphores = &renderer->renderFinishedSemas[renderer->crntFrame],
         .commandBufferCount = 1,
-        .pCommandBuffers = &renderer->cmdBuff,
+        .pCommandBuffers = &renderer->cmdBuffs[renderer->crntFrame],
         .pWaitDstStageMask = waitStages
     };
 
-    VK_CHECK(vkQueueSubmit(renderer->backend.device.families.queue, 1, &submitInfo, renderer->inFlight))
+    VK_CHECK(vkQueueSubmit(renderer->backend.device.families.queue, 1, &submitInfo, renderer->inFlights[renderer->crntFrame]))
 
     VkPresentInfoKHR presentInfo = {
         .sType = VK_STRUCTURE_TYPE_PRESENT_INFO_KHR,
@@ -68,16 +82,26 @@ void renderer_render(renderer *renderer) {
         .swapchainCount = 1,
         .pSwapchains = &renderer->backend.sc.swapchain,
         .waitSemaphoreCount = 1,
-        .pWaitSemaphores = &renderer->renderFinishedSema
+        .pWaitSemaphores = &renderer->renderFinishedSemas[renderer->crntFrame]
     };
 
-    VK_CHECK(vkQueuePresentKHR(renderer->backend.device.families.queue, &presentInfo))
+    result = vkQueuePresentKHR(renderer->backend.device.families.queue, &presentInfo);
+    if(result == VK_ERROR_OUT_OF_DATE_KHR || result == VK_SUBOPTIMAL_KHR) {
+        renderer_backend_handle_resize(&renderer->backend, window->window);
+    } else if(result != VK_SUCCESS) {
+        char* msg = "VkResult is %s (line: %d, function: %s, file: %s)";
+        FATAL(msg, string_VkResult(result), __LINE__, __func__, __FILE__);
+    }
+
+    renderer->crntFrame = (renderer->crntFrame + 1) % MAX_FRAMES_IN_FLIGHT;
 }
 
-void renderer_shutdown(renderer *renderer) {
-    destroy_semaphore(&renderer->imgAvailableSema, &renderer->backend.device);
-    destroy_semaphore(&renderer->renderFinishedSema, &renderer->backend.device);
-    destroy_fence(&renderer->inFlight, &renderer->backend.device);
+void renderer_shutdown(renderer* renderer) {
+    for(int i = 0; i < MAX_FRAMES_IN_FLIGHT; i++) {
+        destroy_semaphore(&renderer->imgAvailableSemas[i], &renderer->backend.device);
+        destroy_semaphore(&renderer->renderFinishedSemas[i], &renderer->backend.device);
+        destroy_fence(&renderer->inFlights[i], &renderer->backend.device);
+    }
     destroy_cmd_pool(&renderer->cmdPool, &renderer->backend.device);
     renderer_backend_shutdown(&renderer->backend);
 }

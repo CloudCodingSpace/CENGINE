@@ -16,7 +16,41 @@ void renderer_backend_initialize(renderer_backend* ctx, GLFWwindow* window) {
     create_renderpass(&ctx->pass, &ctx->device, &ctx->sc);
 
     ctx->buffs = (VkFramebuffer*) calloc(ctx->sc.imgCount, sizeof(VkFramebuffer));
-    // VkFramebuffer buffs[framebuffCount];
+    for(uint32_t i = 0; i < ctx->sc.imgCount; i++) {
+        VkImageView view[] = {
+            ctx->sc.imgViews[i]
+        };
+
+        VkFramebufferCreateInfo info = {
+            .sType = VK_STRUCTURE_TYPE_FRAMEBUFFER_CREATE_INFO,
+            .attachmentCount = 1,
+            .pAttachments = view,
+            .layers = 1,
+            .width = ctx->sc.extent.width,
+            .height = ctx->sc.extent.height,
+            .renderPass = ctx->pass.pass
+        };
+
+        VK_CHECK(vkCreateFramebuffer(ctx->device.logical, &info, 0, &ctx->buffs[i]))
+    }
+}
+
+void renderer_backend_handle_resize(renderer_backend *ctx, GLFWwindow *window) {
+    // Handling minimize
+    int width = 0, height = 0;
+    glfwGetFramebufferSize(window, &width, &height);
+    while(width == 0 || height == 0) {
+        glfwGetFramebufferSize(window, &width, &height);
+        glfwWaitEvents();
+    }
+    vkDeviceWaitIdle(ctx->device.logical);
+    // Destroying objs
+    destroy_swapchain(&ctx->sc, &ctx->device);
+    for(uint32_t i = 0; i < ctx->sc.imgCount; i++) {
+        vkDestroyFramebuffer(ctx->device.logical, ctx->buffs[i], 0);
+    }
+    // Recreatinf objs
+    create_swapchain(&ctx->sc, &ctx->instance, &ctx->device, &ctx->surface, window);
     for(uint32_t i = 0; i < ctx->sc.imgCount; i++) {
         VkImageView view[] = {
             ctx->sc.imgViews[i]

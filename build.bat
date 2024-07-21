@@ -1,8 +1,7 @@
 @echo off
 SetLocal EnableDelayedExpansion
 
-glslc shaders/default.vert -o shaders/default.vert.spv
-glslc shaders/default.frag -o shaders/default.frag.spv
+call build-shaders
 
 set srcs=
 for /R %%f in (*.c) do (

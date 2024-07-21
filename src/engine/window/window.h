@@ -9,6 +9,7 @@ typedef struct window {
     GLFWwindow* window;
     int width, height;
     const char* title;
+    bool resized;
 } window;
 
 void window_initialize(window* window);
@@ -17,3 +18,5 @@ void window_show(window* window);
 void window_shutdown(window* window);
 
 bool window_is_close_button_pressed(window* window);
+
+static void window_resize_callback(GLFWwindow* window, int width, int height);

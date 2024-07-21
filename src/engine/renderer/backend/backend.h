@@ -25,4 +25,5 @@ typedef struct renderer_backend {
 } renderer_backend;
 
 void renderer_backend_initialize(renderer_backend* backend, GLFWwindow* window);
+void renderer_backend_handle_resize(renderer_backend* backend, GLFWwindow* window);
 void renderer_backend_shutdown(renderer_backend* backend);
