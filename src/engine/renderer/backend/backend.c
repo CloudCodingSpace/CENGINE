@@ -21,17 +21,7 @@ void renderer_backend_initialize(renderer_backend* ctx, GLFWwindow* window) {
             ctx->sc.imgViews[i]
         };
 
-        VkFramebufferCreateInfo info = {
-            .sType = VK_STRUCTURE_TYPE_FRAMEBUFFER_CREATE_INFO,
-            .attachmentCount = 1,
-            .pAttachments = view,
-            .layers = 1,
-            .width = ctx->sc.extent.width,
-            .height = ctx->sc.extent.height,
-            .renderPass = ctx->pass.pass
-        };
-
-        VK_CHECK(vkCreateFramebuffer(ctx->device.logical, &info, 0, &ctx->buffs[i]))
+        create_framebuffer(&ctx->buffs[i], &ctx->device, view, ctx->sc.extent, &ctx->pass);
     }
 }
 
@@ -47,32 +37,22 @@ void renderer_backend_handle_resize(renderer_backend *ctx, GLFWwindow *window) {
     // Destroying objs
     destroy_swapchain(&ctx->sc, &ctx->device);
     for(uint32_t i = 0; i < ctx->sc.imgCount; i++) {
-        vkDestroyFramebuffer(ctx->device.logical, ctx->buffs[i], 0);
+        destroy_framebuffer(&ctx->buffs[i], &ctx->device);
     }
-    // Recreatinf objs
+    // Recreating objs
     create_swapchain(&ctx->sc, &ctx->instance, &ctx->device, &ctx->surface, window);
     for(uint32_t i = 0; i < ctx->sc.imgCount; i++) {
         VkImageView view[] = {
             ctx->sc.imgViews[i]
         };
 
-        VkFramebufferCreateInfo info = {
-            .sType = VK_STRUCTURE_TYPE_FRAMEBUFFER_CREATE_INFO,
-            .attachmentCount = 1,
-            .pAttachments = view,
-            .layers = 1,
-            .width = ctx->sc.extent.width,
-            .height = ctx->sc.extent.height,
-            .renderPass = ctx->pass.pass
-        };
-
-        VK_CHECK(vkCreateFramebuffer(ctx->device.logical, &info, 0, &ctx->buffs[i]))
+        create_framebuffer(&ctx->buffs[i], &ctx->device, view, ctx->sc.extent, &ctx->pass);
     }
 }
 
 void renderer_backend_shutdown(renderer_backend* ctx) {
     for(uint32_t i = 0; i < ctx->sc.imgCount; i++) {
-        vkDestroyFramebuffer(ctx->device.logical, ctx->buffs[i], 0);
+        destroy_framebuffer(&ctx->buffs[i], &ctx->device);
     }
     free(ctx->buffs);
 

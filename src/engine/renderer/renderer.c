@@ -86,7 +86,7 @@ void renderer_render(renderer* renderer, window* window) {
     };
 
     result = vkQueuePresentKHR(renderer->backend.device.families.queue, &presentInfo);
-    if(result == VK_ERROR_OUT_OF_DATE_KHR || result == VK_SUBOPTIMAL_KHR) {
+    if(result == VK_ERROR_OUT_OF_DATE_KHR || result == VK_SUBOPTIMAL_KHR || window->resized) {
         renderer_backend_handle_resize(&renderer->backend, window->window);
     } else if(result != VK_SUCCESS) {
         char* msg = "VkResult is %s (line: %d, function: %s, file: %s)";

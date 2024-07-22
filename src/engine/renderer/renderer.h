@@ -12,11 +12,14 @@
 
 typedef struct renderer {
     renderer_backend backend;
+
     VkCommandPool cmdPool;
     VkCommandBuffer cmdBuffs[MAX_FRAMES_IN_FLIGHT];
+    
     VkSemaphore imgAvailableSemas[MAX_FRAMES_IN_FLIGHT];
     VkSemaphore renderFinishedSemas[MAX_FRAMES_IN_FLIGHT];
     VkFence inFlights[MAX_FRAMES_IN_FLIGHT];
+
     int crntFrame;
 } renderer;
 

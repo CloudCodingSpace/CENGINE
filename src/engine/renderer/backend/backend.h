@@ -11,6 +11,7 @@
 #include "device.h"
 #include "debugger.h"
 #include "renderpass.h"
+#include "framebuffer.h"
 
 typedef struct renderer_backend {
 #ifdef _DEBUG
