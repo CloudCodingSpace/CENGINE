@@ -4,13 +4,15 @@ void renderer_initialize(renderer* renderer, window* window) {
     renderer->crntFrame = 0;
 
     renderer_backend_initialize(&renderer->backend, window->window);
-    create_cmd_pool(&renderer->cmdPool, &renderer->backend.device);
+    bcknd_create_cmd_pool(&renderer->cmdPool, &renderer->backend.device);
     for(int i = 0; i < MAX_FRAMES_IN_FLIGHT; i++) {
-        renderer->cmdBuffs[i] = create_command_buff(renderer->cmdPool, &renderer->backend.device);
-        create_semaphore(&renderer->imgAvailableSemas[i], &renderer->backend.device);
-        create_semaphore(&renderer->renderFinishedSemas[i], &renderer->backend.device);
-        create_fence(&renderer->inFlights[i], &renderer->backend.device);
+        renderer->cmdBuffs[i] = bcknd_create_command_buff(renderer->cmdPool, &renderer->backend.device);
+        bcknd_create_semaphore(&renderer->imgAvailableSemas[i], &renderer->backend.device);
+        bcknd_create_semaphore(&renderer->renderFinishedSemas[i], &renderer->backend.device);
+        bcknd_create_fence(&renderer->inFlights[i], &renderer->backend.device);
     }
+
+    create_shader(&renderer->shader, SHADER_TYPE_GRAPHICS, &renderer->backend.device, &renderer->backend.pass, "shaders/default.vert.spv", "shaders/default.frag.spv", renderer->backend.sc.extent);
 }
 
 void renderer_update(renderer* renderer) {
@@ -18,7 +20,7 @@ void renderer_update(renderer* renderer) {
 }
 
 void renderer_record_render_cmds(renderer* renderer, uint32_t imgIdx) {
-    begin_cmd_buff(&renderer->backend.device, &renderer->cmdBuffs[renderer->crntFrame]);
+    bcknd_begin_cmd_buff(&renderer->backend.device, &renderer->cmdBuffs[renderer->crntFrame]);
 
     VkClearValue clear = {{0.1f, 0.1f, 0.1f, 1.0f}};
     VkFramebuffer buff = renderer->backend.buffs[imgIdx];
@@ -33,10 +35,26 @@ void renderer_record_render_cmds(renderer* renderer, uint32_t imgIdx) {
     };
     vkCmdBeginRenderPass(renderer->cmdBuffs[renderer->crntFrame], &passBegin, VK_SUBPASS_CONTENTS_INLINE);
     
+    vkCmdBindPipeline(renderer->cmdBuffs[renderer->crntFrame], VK_PIPELINE_BIND_POINT_GRAPHICS, renderer->shader.pipeline);
 
-    
+    VkViewport viewport = {};
+    viewport.x = 0.0f;
+    viewport.y = 0.0f;
+    viewport.width = (float)renderer->backend.sc.extent.width;
+    viewport.height = (float)renderer->backend.sc.extent.height;
+    viewport.minDepth = 0.0f;
+    viewport.maxDepth = 1.0f;
+    vkCmdSetViewport(renderer->cmdBuffs[renderer->crntFrame], 0, 1, &viewport);
+
+    VkRect2D scissor = {};
+    scissor.offset = (VkOffset2D){0, 0};
+    scissor.extent = renderer->backend.sc.extent;
+    vkCmdSetScissor(renderer->cmdBuffs[renderer->crntFrame], 0, 1, &scissor);
+
+    vkCmdDraw(renderer->cmdBuffs[renderer->crntFrame], 3, 1, 0, 0);
+
     vkCmdEndRenderPass(renderer->cmdBuffs[renderer->crntFrame]);
-    end_cmd_buff(&renderer->cmdBuffs[renderer->crntFrame]);
+    bcknd_end_cmd_buff(&renderer->cmdBuffs[renderer->crntFrame]);
 }
 
 void renderer_render(renderer* renderer, window* window) {
@@ -97,11 +115,13 @@ void renderer_render(renderer* renderer, window* window) {
 }
 
 void renderer_shutdown(renderer* renderer) {
+    destroy_shader(&renderer->shader, &renderer->backend.device);
+
     for(int i = 0; i < MAX_FRAMES_IN_FLIGHT; i++) {
-        destroy_semaphore(&renderer->imgAvailableSemas[i], &renderer->backend.device);
-        destroy_semaphore(&renderer->renderFinishedSemas[i], &renderer->backend.device);
-        destroy_fence(&renderer->inFlights[i], &renderer->backend.device);
+        bcknd_destroy_semaphore(&renderer->imgAvailableSemas[i], &renderer->backend.device);
+        bcknd_destroy_semaphore(&renderer->renderFinishedSemas[i], &renderer->backend.device);
+        bcknd_destroy_fence(&renderer->inFlights[i], &renderer->backend.device);
     }
-    destroy_cmd_pool(&renderer->cmdPool, &renderer->backend.device);
+    bcknd_destroy_cmd_pool(&renderer->cmdPool, &renderer->backend.device);
     renderer_backend_shutdown(&renderer->backend);
 }

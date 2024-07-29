@@ -5,6 +5,9 @@
 #include "backend/backend.h"
 #include "backend/cmd.h"
 #include "backend/sync_objs.h"
+
+#include "shader.h"
+
 #include <engine/utils.h>
 #include <engine/window/window.h>
 
@@ -19,6 +22,8 @@ typedef struct renderer {
     VkSemaphore imgAvailableSemas[MAX_FRAMES_IN_FLIGHT];
     VkSemaphore renderFinishedSemas[MAX_FRAMES_IN_FLIGHT];
     VkFence inFlights[MAX_FRAMES_IN_FLIGHT];
+
+    shader shader;
 
     int crntFrame;
 } renderer;

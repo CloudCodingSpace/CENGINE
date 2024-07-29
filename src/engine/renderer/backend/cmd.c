@@ -1,6 +1,6 @@
 #include "cmd.h"
 
-void create_cmd_pool(VkCommandPool *pool, device *device) {
+void bcknd_create_cmd_pool(VkCommandPool *pool, device *device) {
     VkCommandPoolCreateInfo info = {
         .sType = VK_STRUCTURE_TYPE_COMMAND_POOL_CREATE_INFO,
         .flags = VK_COMMAND_POOL_CREATE_RESET_COMMAND_BUFFER_BIT,
@@ -10,11 +10,11 @@ void create_cmd_pool(VkCommandPool *pool, device *device) {
     VK_CHECK(vkCreateCommandPool(device->logical, &info, 0, pool))
 }
 
-void destroy_cmd_pool(VkCommandPool *pool, device *device) {
+void bcknd_destroy_cmd_pool(VkCommandPool *pool, device *device) {
     vkDestroyCommandPool(device->logical, *pool, 0);
 }
 
-VkCommandBuffer create_command_buff(VkCommandPool pool, device* device) {
+VkCommandBuffer bcknd_create_command_buff(VkCommandPool pool, device* device) {
     VkCommandBuffer buff;
 
     VkCommandBufferAllocateInfo allocInfo = {
@@ -28,11 +28,11 @@ VkCommandBuffer create_command_buff(VkCommandPool pool, device* device) {
     return buff;
 }
 
-void destroy_command_buff(VkCommandPool* pool, device* device, VkCommandBuffer* buff) {
+void bcknd_destroy_command_buff(VkCommandPool* pool, device* device, VkCommandBuffer* buff) {
     vkFreeCommandBuffers(device->logical, *pool, 1, buff);
 }
 
-void begin_cmd_buff(device* device, VkCommandBuffer* buff) {
+void bcknd_begin_cmd_buff(device* device, VkCommandBuffer* buff) {
     VkCommandBufferBeginInfo begin = {
         .sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO
     };
@@ -40,6 +40,6 @@ void begin_cmd_buff(device* device, VkCommandBuffer* buff) {
     VK_CHECK(vkBeginCommandBuffer(*buff, &begin))
 }
 
-void end_cmd_buff(VkCommandBuffer* buff) {
+void bcknd_end_cmd_buff(VkCommandBuffer* buff) {
     VK_CHECK(vkEndCommandBuffer(*buff))
 }
