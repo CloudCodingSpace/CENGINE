@@ -1,5 +1,35 @@
 #include "device.h"
 
+VkFormat find_supported_formats(VkPhysicalDevice device, VkFormat *candidates, VkImageTiling tiling, VkFormatFeatureFlags flags) {
+    for(uint32_t i = 0; i < ARR_SIZE(candidates); i++) {
+        VkFormat format = candidates[i];
+        VkFormatProperties props = {};
+        vkGetPhysicalDeviceFormatProperties(device, format, &props);
+        if(tiling == VK_IMAGE_TILING_LINEAR && (props.linearTilingFeatures & flags)) {
+            return format;
+        }
+        else if(tiling == VK_IMAGE_TILING_OPTIMAL && (props.optimalTilingFeatures & flags)) {
+            return format;
+        }
+    }
+    
+    return VK_FORMAT_UNDEFINED;
+}
+
+bool get_depth_format(VkPhysicalDevice device, VkFormat* format)
+{
+    VkFormat candidates[3] = {
+        VK_FORMAT_D32_SFLOAT,
+        VK_FORMAT_D32_SFLOAT_S8_UINT,
+        VK_FORMAT_D24_UNORM_S8_UINT
+    };
+
+    *format = find_supported_formats(device, candidates, VK_IMAGE_TILING_OPTIMAL, VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT);
+
+    if(*format == VK_FORMAT_UNDEFINED) { return false; }
+    return true;
+}
+
 bool is_device_extensions_supported(VkPhysicalDevice device)
 {
     uint32_t extCount = 0;
@@ -25,8 +55,9 @@ bool is_device_usable(VkPhysicalDevice device, VkSurfaceKHR surface)
     queue_families families = find_queue_families(device, surface);
 
     physical_device_sc_caps caps = get_physical_device_caps(device, surface);
+    VkFormat depthFormat;
 
-    return is_queue_family_complete(&families) && is_device_extensions_supported(device) && ARR_SIZE(caps.modes) && ARR_SIZE(caps.formats);
+    return is_queue_family_complete(&families) && is_device_extensions_supported(device) && ARR_SIZE(caps.modes) && ARR_SIZE(caps.formats) && get_depth_format(device, &depthFormat);
 }
 
 void select_physical_device(device* device, instance* instance, VkSurfaceKHR surface) {
@@ -50,6 +81,7 @@ void select_physical_device(device* device, instance* instance, VkSurfaceKHR sur
         FATAL("Failed to find a suitable gpu from the current PC!")
     }
     device->families = find_queue_families(device->physical, surface);
+    get_depth_format(device->physical, &device->depthFormat);
 }
 
 physical_device_sc_caps get_physical_device_caps(VkPhysicalDevice device, VkSurfaceKHR surface)
@@ -73,7 +105,7 @@ physical_device_sc_caps get_physical_device_caps(VkPhysicalDevice device, VkSurf
 
 bool is_queue_family_complete(queue_families *family)
 {
-    return (family->qIdx != -1);
+    return (family->qIdx != INVALID_IDX);
 }
 
 queue_families find_queue_families(VkPhysicalDevice device, VkSurfaceKHR surface) {
@@ -115,7 +147,7 @@ void retrive_queue_objects(device* device) {
 }
 
 void create_device(device* device, instance* instance, VkSurfaceKHR surface) {
-    device->families.qIdx = INVALID_QUEUE_IDX;
+    device->families.qIdx = INVALID_IDX;
 
     device->physical = VK_NULL_HANDLE;
 

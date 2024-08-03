@@ -9,6 +9,7 @@ void create_shader(shader* shader,
         VkExtent2D extent) {
     shader->vertMod = bcknd_create_shader_module(vertSpvPth, device);
     shader->fragMod = bcknd_create_shader_module(fragSpvPth, device);
+    shader->type = type;
 
     // Pipeline Layout 
     {
@@ -37,8 +38,14 @@ void create_shader(shader* shader,
     }
 }
 
-void bind_shader(shader* shader) {
-    
+void bind_shader(shader* shader, VkCommandBuffer* buff) {
+    VkPipelineBindPoint point;
+    if(shader->type == SHADER_TYPE_GRAPHICS)
+        point = VK_PIPELINE_BIND_POINT_GRAPHICS;
+    if(shader->type == SHADER_TYPE_COMPUTE)
+        point = VK_PIPELINE_BIND_POINT_COMPUTE;
+
+    vkCmdBindPipeline(*buff, point, shader->pipeline);
 }
 
 void destroy_shader(shader* shader, device* device) {

@@ -6,6 +6,7 @@
 #include "logger.h"
 
 #include <stdint.h>
+#include <stdbool.h>
 #include <math.h>
 
 void check_vk_result(VkResult result, uint32_t lineNum, const char* funcName, const char* fileName);
@@ -13,6 +14,15 @@ uint32_t clamp_uint(uint32_t n, uint32_t min, uint32_t max);
 char* read_file(const char* path, size_t* count, const char* mode);
 
 #define MAX_FRAMES_IN_FLIGHT 2
+#define INVALID_IDX 2
+
+#ifndef true
+    #define true 1
+#endif
+
+#ifndef false
+    #define false 0
+#endif
 
 #define VK_CHECK(result) check_vk_result(result, __LINE__, __func__, __FILE__);
 #define ARR_SIZE(arr) (sizeof((arr))/sizeof((arr[0])))

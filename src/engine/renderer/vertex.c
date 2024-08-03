@@ -10,21 +10,22 @@ VkVertexInputBindingDescription get_vertex_binding_desc() {
     return desc;
 }
 
-VkVertexInputAttributeDescription* get_vertex_attrib_desc() {
-    VkVertexInputAttributeDescription descs[2];
-    descs[0] = (VkVertexInputAttributeDescription){
-        .binding = 0,
-        .format = VK_FORMAT_R32G32B32_SFLOAT,
-        .location = 0,
-        .offset = offsetof(vertex, pos)
-    };
+void get_vertex_attrib_desc(VkVertexInputAttributeDescription* attribs, uint32_t* count) {
+    *count = 2;
+    
+    if(attribs != 0) {
+        attribs[0] = (VkVertexInputAttributeDescription){
+            .binding = 0,
+            .format = VK_FORMAT_R32G32B32_SFLOAT,
+            .location = 0,
+            .offset = offsetof(vertex, pos)
+        };
 
-    descs[1] = (VkVertexInputAttributeDescription){
-        .binding = 0,
-        .format = VK_FORMAT_R32G32B32_SFLOAT,
-        .location = 1,
-        .offset = offsetof(vertex, col)
-    };
-
-    return descs;
+        attribs[1] = (VkVertexInputAttributeDescription){
+            .binding = 0,
+            .format = VK_FORMAT_R32G32B32_SFLOAT,
+            .location = 1,
+            .offset = offsetof(vertex, col)
+        };
+    }
 }

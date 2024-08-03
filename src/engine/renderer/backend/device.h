@@ -3,14 +3,12 @@
 #include <vulkan/vulkan.h>
 
 #include <engine/logger.h>
+#include <engine/utils.h>
 #include "instance.h"
-// #include "swapchain.h"
 
 #include <stdint.h>
 #include <stdbool.h>
 #include <stdlib.h>
-
-#define INVALID_QUEUE_IDX -1
 
 typedef struct queue_families {
     uint32_t qIdx;
@@ -19,6 +17,7 @@ typedef struct queue_families {
 } queue_families;
 
 typedef struct device {
+    VkFormat depthFormat;
     VkPhysicalDevice physical;
     VkDevice logical;
 
@@ -30,6 +29,9 @@ typedef struct physical_device_sc_caps {
     VkPresentModeKHR* modes;
     VkSurfaceFormatKHR* formats;
 } physical_device_sc_caps;
+
+VkFormat find_supported_formats(VkPhysicalDevice device, VkFormat* candidates, VkImageTiling tiling, VkFormatFeatureFlags flags);
+bool get_depth_format(VkPhysicalDevice device, VkFormat* format);
 
 bool is_device_extensions_supported(VkPhysicalDevice device);
 

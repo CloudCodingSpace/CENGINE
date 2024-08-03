@@ -7,6 +7,7 @@
 #include "backend/sync_objs.h"
 
 #include "shader.h"
+#include "mesh.h"
 
 #include <engine/utils.h>
 #include <engine/window/window.h>
@@ -24,6 +25,7 @@ typedef struct renderer {
     VkFence inFlights[MAX_FRAMES_IN_FLIGHT];
 
     shader shader;
+    mesh mesh;
 
     int crntFrame;
 } renderer;

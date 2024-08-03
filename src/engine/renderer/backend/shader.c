@@ -35,15 +35,17 @@ void bcknd_create_graphics_shader_pipeline(VkPipeline* pipe,
         .topology = VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST
     };
 
-    // VkVertexInputBindingDescription bindingDesc = get_vertex_binding_desc();
-    // VkVertexInputAttributeDescription* descs = get_vertex_attrib_desc();
-    // uint32_t descsCount = ARR_SIZE(descs);
+    VkVertexInputBindingDescription bindingDesc = get_vertex_binding_desc();
+    uint32_t descsCount;
+    get_vertex_attrib_desc(0, &descsCount);
+    VkVertexInputAttributeDescription descs[descsCount];
+    get_vertex_attrib_desc(descs, &descsCount);
     VkPipelineVertexInputStateCreateInfo vertState = {
-        .sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO//,
-        // .vertexBindingDescriptionCount = 1,
-        // .pVertexBindingDescriptions = &bindingDesc,
-        // .vertexAttributeDescriptionCount = descsCount,
-        // .pVertexAttributeDescriptions = descs
+        .sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO,
+        .vertexBindingDescriptionCount = 1,
+        .pVertexBindingDescriptions = &bindingDesc,
+        .vertexAttributeDescriptionCount = descsCount,
+        .pVertexAttributeDescriptions = descs
     };
 
     VkPipelineShaderStageCreateInfo stages[2];

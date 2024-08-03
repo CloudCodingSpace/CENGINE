@@ -3,6 +3,7 @@
 #include <vulkan/vulkan.h>
 
 #include <cglm/cglm.h>
+#include <stdlib.h>
 
 typedef struct vertex {
     vec3 pos;
@@ -10,4 +11,4 @@ typedef struct vertex {
 } vertex;
 
 VkVertexInputBindingDescription get_vertex_binding_desc();
-VkVertexInputAttributeDescription* get_vertex_attrib_desc();
+void get_vertex_attrib_desc(VkVertexInputAttributeDescription* descs, uint32_t* count);

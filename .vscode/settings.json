@@ -30,13 +30,5 @@
     "workbench.iconTheme": "material-icon-theme",
     "workbench.colorTheme": "One Dark Pro",
     "editor.cursorStyle": "block",
-    "editor.cursorBlinking": "smooth",
-    "files.associations": {
-        "span": "c",
-        "window.h": "c",
-        "renderpass.h": "c",
-        "cglm.h": "c",
-        "mat4.h": "c",
-        "aabb2d.h": "c"
-    }
+    "editor.cursorBlinking": "smooth"
 }
