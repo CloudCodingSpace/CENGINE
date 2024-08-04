@@ -21,6 +21,10 @@ void log_output(log_severity severity, const char* msg, ...) {
         char message[] = "[DEBUG] ";
         mssage = message;
     }
+    else if(severity == LOG_SEVERITY_WARN) {
+        char message[] = "[WARN] ";
+        mssage = message;
+    }
     else if(severity == LOG_SEVERITY_ERROR) {
         char message[] = "[ERROR] ";
         mssage = message;
