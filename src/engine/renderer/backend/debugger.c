@@ -2,11 +2,11 @@
 
 #include "debugger.h"
 
-VKAPI_ATTR VkBool32 VKAPI_CALL debugCallback(
+static VKAPI_ATTR VkBool32 VKAPI_CALL debugCallback(
     VkDebugUtilsMessageSeverityFlagBitsEXT messageSeverity,
     VkDebugUtilsMessageTypeFlagsEXT messageType,
     const VkDebugUtilsMessengerCallbackDataEXT* pCallbackData,
-    void* pUserData) {
+    void* pUserData)  {
 
         DEBUG("VULKAN DEBUGGER: %s\n", pCallbackData->pMessage)
 

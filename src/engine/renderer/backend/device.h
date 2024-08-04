@@ -28,9 +28,11 @@ typedef struct physical_device_sc_caps {
     VkSurfaceCapabilitiesKHR caps;
     VkPresentModeKHR* modes;
     VkSurfaceFormatKHR* formats;
+    uint32_t modeCount;
+    uint32_t formatCount;
 } physical_device_sc_caps;
 
-VkFormat find_supported_formats(VkPhysicalDevice device, VkFormat* candidates, VkImageTiling tiling, VkFormatFeatureFlags flags);
+VkFormat find_supported_formats(VkPhysicalDevice device, VkFormat* candidates, uint32_t count, VkImageTiling tiling, VkFormatFeatureFlags flags);
 bool get_depth_format(VkPhysicalDevice device, VkFormat* format);
 
 bool is_device_extensions_supported(VkPhysicalDevice device);

@@ -13,4 +13,4 @@ set libp=-Llib
 set defines=-D_DEBUG -D_WIN32
 set linkerflags=-lvulkan-1 -lglfw3dll
 
-gcc -g --std=c23 %defines% %includep% %libp% %srcs% %linkerflags% -o engine
+gcc -g --std=c23 -Wall %defines% %includep% %libp% %srcs% %linkerflags% -o engine

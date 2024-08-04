@@ -35,7 +35,7 @@ void renderer_update(renderer* renderer) {
 void renderer_record_render_cmds(renderer* renderer, uint32_t imgIdx) {
     bcknd_begin_cmd_buff(&renderer->backend.device, &renderer->cmdBuffs[renderer->crntFrame]);
 
-    VkClearValue clear = {{0.1f, 0.1f, 0.1f, 1.0f}};
+    VkClearValue clear = {{{0.01f, 0.01f, 0.01f, 1.0f}}};
     VkFramebuffer buff = renderer->backend.buffs[imgIdx];
     VkRenderPassBeginInfo passBegin = {
         .sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO,

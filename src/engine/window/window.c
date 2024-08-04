@@ -1,5 +1,12 @@
 #include "window.h"
 
+static void window_resize_callback(GLFWwindow* win, int width, int height) {
+    window* window = glfwGetWindowUserPointer(win);
+    window->width = width;
+    window->height = height;
+    window->resized = true;
+}
+
 void window_initialize(window* window) {
     window->resized = false;
 
@@ -34,11 +41,4 @@ void window_shutdown(window* window) {
 
 bool window_is_close_button_pressed(window *window) {
     return glfwWindowShouldClose(window->window);
-}
-
-void window_resize_callback(GLFWwindow *win, int width, int height) {
-    window* window = glfwGetWindowUserPointer(win);
-    window->width = width;
-    window->height = height;
-    window->resized = true;
 }

@@ -2,7 +2,8 @@
 
 #include <GLFW/glfw3.h>
 
-#include <engine/logger.h>
+#include <engine/logger.h> 
+#include <engine/utils.h> 
 #include <stdbool.h>
 
 typedef struct window {
@@ -18,5 +19,3 @@ void window_show(window* window);
 void window_shutdown(window* window);
 
 bool window_is_close_button_pressed(window* window);
-
-static void window_resize_callback(GLFWwindow* window, int width, int height);

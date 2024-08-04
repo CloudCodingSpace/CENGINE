@@ -10,13 +10,19 @@ uint32_t bcknd_find_mem_type_idx(device* device, uint32_t type, VkMemoryProperty
         }
     }
     
-    FATAL("Failed to find suitable memory type index!")
+    return INVALID_IDX;
 }
 
 void bcknd_allocate_device_memory(device* device, VkDeviceMemory* mem, VkMemoryRequirements memRequirements, VkMemoryPropertyFlags memFlags) {
+        
+        uint32_t type = bcknd_find_mem_type_idx(device, memRequirements.memoryTypeBits, memFlags);
+        
+        if(type == INVALID_IDX)
+            FATAL("Failed to find suitable memory type index!")
+
         VkMemoryAllocateInfo info = {
             .sType = VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO,
-            .memoryTypeIndex = bcknd_find_mem_type_idx(device, memRequirements.memoryTypeBits, memFlags),
+            .memoryTypeIndex = type,
             .allocationSize = memRequirements.size
         };
 

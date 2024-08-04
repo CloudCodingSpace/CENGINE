@@ -21,7 +21,7 @@ void renderer_backend_initialize(renderer_backend* ctx, GLFWwindow* window) {
             ctx->sc.imgViews[i]
         };
 
-        create_framebuffer(&ctx->buffs[i], &ctx->device, view, ctx->sc.extent, &ctx->pass);
+        create_framebuffer(&ctx->buffs[i], &ctx->device, view, ARR_SIZE(view), ctx->sc.extent, &ctx->pass);
     }
 }
 
@@ -46,7 +46,7 @@ void renderer_backend_handle_resize(renderer_backend *ctx, GLFWwindow *window) {
             ctx->sc.imgViews[i]
         };
 
-        create_framebuffer(&ctx->buffs[i], &ctx->device, view, ctx->sc.extent, &ctx->pass);
+        create_framebuffer(&ctx->buffs[i], &ctx->device, view, ARR_SIZE(view), ctx->sc.extent, &ctx->pass);
     }
 }
 

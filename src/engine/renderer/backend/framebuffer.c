@@ -1,9 +1,9 @@
 #include "framebuffer.h"
 
-void create_framebuffer(VkFramebuffer *out, device *device, VkImageView *view, VkExtent2D extent, renderpass *pass) {
+void create_framebuffer(VkFramebuffer *out, device *device, VkImageView *view, uint32_t count, VkExtent2D extent, renderpass *pass) {
     VkFramebufferCreateInfo info = {
         .sType = VK_STRUCTURE_TYPE_FRAMEBUFFER_CREATE_INFO,
-        .attachmentCount = ARR_SIZE(view),
+        .attachmentCount = count,
         .pAttachments = view,
         .layers = 1,
         .width = extent.width,

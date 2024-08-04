@@ -19,13 +19,6 @@ typedef struct debugger {
 
 #define LAYERNAME "VK_LAYER_KHRONOS_validation"
 
-static VKAPI_ATTR VkBool32 VKAPI_CALL debugCallback(
-    VkDebugUtilsMessageSeverityFlagBitsEXT messageSeverity,
-    VkDebugUtilsMessageTypeFlagsEXT messageType,
-    const VkDebugUtilsMessengerCallbackDataEXT* pCallbackData,
-    void* pUserData);
-
-
 bool check_extensions();
 VkDebugUtilsMessengerCreateInfoEXT get_debugger_info();
 const char** get_debugger_exts();

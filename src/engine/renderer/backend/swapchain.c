@@ -42,9 +42,7 @@ void destroy_swapchain_img_views(swapchain* sc, device* device) {
 }
 
 void select_sc_format(swapchain* sc) {
-    uint32_t count = ARR_SIZE(sc->caps.formats);
-
-    for(uint32_t i = 0; i < count; i++) {
+    for(uint32_t i = 0; i < sc->caps.formatCount; i++) {
         if((sc->caps.formats[i].format == VK_FORMAT_B8G8R8A8_SRGB) && (sc->caps.formats[i].colorSpace == VK_COLOR_SPACE_SRGB_NONLINEAR_KHR)) {
             sc->format = sc->caps.formats[i];
             return;
@@ -54,10 +52,8 @@ void select_sc_format(swapchain* sc) {
     sc->format = sc->caps.formats[0];
 }
 
-void select_sc_mode(swapchain* sc) {
-    uint32_t count = ARR_SIZE(sc->caps.modes);
-    
-    for(uint32_t i = 0; i < count; i++) {
+void select_sc_mode(swapchain* sc) {    
+    for(uint32_t i = 0; i < sc->caps.modeCount; i++) {
         if(sc->caps.modes[i] == VK_PRESENT_MODE_MAILBOX_KHR) {
             sc->mode = sc->caps.modes[i];
         }

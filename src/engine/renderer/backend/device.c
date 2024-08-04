@@ -1,7 +1,7 @@
 #include "device.h"
 
-VkFormat find_supported_formats(VkPhysicalDevice device, VkFormat *candidates, VkImageTiling tiling, VkFormatFeatureFlags flags) {
-    for(uint32_t i = 0; i < ARR_SIZE(candidates); i++) {
+VkFormat find_supported_formats(VkPhysicalDevice device, VkFormat* candidates, uint32_t count, VkImageTiling tiling, VkFormatFeatureFlags flags) {
+    for(uint32_t i = 0; i < count; i++) {
         VkFormat format = candidates[i];
         VkFormatProperties props = {};
         vkGetPhysicalDeviceFormatProperties(device, format, &props);
@@ -24,7 +24,7 @@ bool get_depth_format(VkPhysicalDevice device, VkFormat* format)
         VK_FORMAT_D24_UNORM_S8_UINT
     };
 
-    *format = find_supported_formats(device, candidates, VK_IMAGE_TILING_OPTIMAL, VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT);
+    *format = find_supported_formats(device, candidates, ARR_SIZE(candidates), VK_IMAGE_TILING_OPTIMAL, VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT);
 
     if(*format == VK_FORMAT_UNDEFINED) { return false; }
     return true;
@@ -57,7 +57,7 @@ bool is_device_usable(VkPhysicalDevice device, VkSurfaceKHR surface)
     physical_device_sc_caps caps = get_physical_device_caps(device, surface);
     VkFormat depthFormat;
 
-    return is_queue_family_complete(&families) && is_device_extensions_supported(device) && ARR_SIZE(caps.modes) && ARR_SIZE(caps.formats) && get_depth_format(device, &depthFormat);
+    return is_queue_family_complete(&families) && is_device_extensions_supported(device) && caps.modeCount && caps.formatCount && get_depth_format(device, &depthFormat);
 }
 
 void select_physical_device(device* device, instance* instance, VkSurfaceKHR surface) {
@@ -89,16 +89,16 @@ physical_device_sc_caps get_physical_device_caps(VkPhysicalDevice device, VkSurf
     physical_device_sc_caps caps;
 
     vkGetPhysicalDeviceSurfaceCapabilitiesKHR(device, surface, &caps.caps);
-    uint32_t formatCount = 0;
-    vkGetPhysicalDeviceSurfaceFormatsKHR(device, surface, &formatCount, 0);
-    VkSurfaceFormatKHR formats[formatCount];
+    caps.formatCount = 0;
+    vkGetPhysicalDeviceSurfaceFormatsKHR(device, surface, &caps.formatCount, 0);
+    VkSurfaceFormatKHR formats[caps.formatCount];
     caps.formats = formats;
-    vkGetPhysicalDeviceSurfaceFormatsKHR(device, surface, &formatCount, caps.formats);
-    uint32_t modeCount = 0;
-    vkGetPhysicalDeviceSurfacePresentModesKHR(device, surface, &modeCount, 0);
-    VkPresentModeKHR modes[modeCount];
+    vkGetPhysicalDeviceSurfaceFormatsKHR(device, surface, &caps.formatCount, caps.formats);
+    caps.modeCount = 0;
+    vkGetPhysicalDeviceSurfacePresentModesKHR(device, surface, &caps.modeCount, 0);
+    VkPresentModeKHR modes[caps.modeCount];
     caps.modes = modes;
-    vkGetPhysicalDeviceSurfacePresentModesKHR(device, surface, &modeCount, caps.modes);
+    vkGetPhysicalDeviceSurfacePresentModesKHR(device, surface, &caps.modeCount, caps.modes);
 
     return caps;
 }

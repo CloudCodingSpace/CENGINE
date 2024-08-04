@@ -1,4 +1,2 @@
 *.exe
 src/engine/renderer/backend/image.*
-shader/*.spv
-.gitignore

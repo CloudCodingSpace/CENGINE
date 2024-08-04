@@ -1,7 +1,7 @@
 #include "logger.h"
 
 void log_output(log_severity severity, const char* msg, ...) {
-    char* mssage;
+    char* mssage = NULL;
     char buff[32000];
     va_list list;
 

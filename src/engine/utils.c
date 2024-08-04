@@ -19,7 +19,7 @@ char* read_file(const char* path, size_t* count, const char* mode) {
     *count = ftell(file);
     fseek(file, 0L, SEEK_SET);
     char* content = (char*) calloc((*count) + 1, sizeof(char));
-    size_t read = fread(content, *count, sizeof(char), file);
+    fread(content, *count, sizeof(char), file);
     content[*count] = '\0';
 
     return content;
