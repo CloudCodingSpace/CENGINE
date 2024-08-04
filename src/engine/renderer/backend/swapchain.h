@@ -6,6 +6,7 @@
 #include <engine/utils.h>
 #include "device.h"
 #include "surface.h"
+#include "image.h"
 
 #include <stdint.h>
 #include <stdlib.h>
@@ -15,6 +16,7 @@ typedef struct swapchain {
     uint32_t imgCount;
     VkImage* imgs;
     VkImageView* imgViews;
+    image depthImg;
 
     VkSurfaceFormatKHR format;
     VkPresentModeKHR mode;

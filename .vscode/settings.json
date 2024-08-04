@@ -30,5 +30,8 @@
     "workbench.iconTheme": "material-icon-theme",
     "workbench.colorTheme": "One Dark Pro",
     "editor.cursorStyle": "block",
-    "editor.cursorBlinking": "smooth"
+    "editor.cursorBlinking": "smooth",
+    "files.associations": {
+        "image.h": "c"
+    }
 }

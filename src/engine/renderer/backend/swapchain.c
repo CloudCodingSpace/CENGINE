@@ -115,9 +115,20 @@ void create_swapchain(swapchain *sc, instance *inst, device *device, win_surface
 
     get_swapchain_imgs(sc, device);
     create_swapchain_img_views(sc, device);
+
+    // Creating the depth image
+    bcknd_create_image(&sc->depthImg, 
+                    device, 
+                    device->depthFormat, 
+                    (VkExtent3D){sc->extent.width, sc->extent.height, 1}, 
+                    VK_IMAGE_TILING_OPTIMAL, 
+                    VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT, 
+                    VK_IMAGE_ASPECT_DEPTH_BIT, 
+                    VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT);
 }
 
 void destroy_swapchain(swapchain* sc, device* device) {
+    bcknd_destroy_image(&sc->depthImg, device);
     destroy_swapchain_img_views(sc, device);
     free(sc->imgs);
     vkDestroySwapchainKHR(device->logical, sc->swapchain, 0);
