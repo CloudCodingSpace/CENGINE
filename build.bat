@@ -10,7 +10,7 @@ for /R %%f in (*.c) do (
 
 set includep=-Iinclude -Isrc -Isrc/engine
 set libp=-Llib
-set defines=-D_WIN32
+set defines=-D_DEBUG -D_WIN32
 set linkerflags=-lvulkan-1 -lglfw3dll
 
 gcc -g --std=c23 -Wall %defines% %includep% %libp% %srcs% %linkerflags% -o engine

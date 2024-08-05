@@ -32,6 +32,8 @@
     "editor.cursorStyle": "block",
     "editor.cursorBlinking": "smooth",
     "files.associations": {
-        "image.h": "c"
+        "image.h": "c",
+        "renderer.h": "c",
+        "mesh.h": "c"
     }
 }

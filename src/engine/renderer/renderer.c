@@ -23,8 +23,12 @@ void renderer_initialize(renderer* renderer, window* window) {
             {{-0.5f,  0.5f, 0.0f},  {0.0f, 0.0f, 1.0f}}
         };
 
+        uint32_t indices[] = {
+            0, 1, 2
+        };
+
         create_shader(&renderer->shader, SHADER_TYPE_GRAPHICS, &renderer->backend.device, &renderer->backend.pass, "shaders/default.vert.spv", "shaders/default.frag.spv", renderer->backend.sc.extent);
-        create_mesh(&renderer->mesh, &renderer->backend.device, &renderer->cmdPool, vertices, ARR_SIZE(vertices));
+        create_mesh(&renderer->mesh, &renderer->backend.device, &renderer->cmdPool, vertices, indices, ARR_SIZE(vertices), ARR_SIZE(indices));
     }
 }
 
