@@ -9,6 +9,7 @@ int main(int argc, const char** argv) {
     engine_run(&engine);
     engine_shutdown(&engine);
 
+    printf("Press any key to continue...\n");
     getch();
     return 0;
 }
