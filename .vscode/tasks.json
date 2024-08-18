@@ -3,7 +3,10 @@
     "tasks": [
         {
             "label": "Proj. Build",
-            "command": "${workspaceFolder}/build.bat",
+            "command": "make",
+            "args": [
+                "-j"
+            ],
             "group": {
                 "kind": "build",
                 "isDefault": true

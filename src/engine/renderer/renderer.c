@@ -36,49 +36,11 @@ void renderer_update(renderer* renderer) {
 
 }
 
-void renderer_record_render_cmds(renderer* renderer, uint32_t imgIdx) {
-    bcknd_begin_cmd_buff(&renderer->backend.device, &renderer->cmdBuffs[renderer->crntFrame]);
-
-    VkClearValue clear = {{{0.01f, 0.01f, 0.01f, 1.0f}}};
-    VkFramebuffer buff = renderer->backend.buffs[imgIdx];
-    VkRenderPassBeginInfo passBegin = {
-        .sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO,
-        .clearValueCount = 1,
-        .pClearValues = &clear,
-        .framebuffer = buff,
-        .renderArea.offset = {0, 0},
-        .renderArea.extent = renderer->backend.sc.extent,
-        .renderPass = renderer->backend.pass.pass
-    };
-    vkCmdBeginRenderPass(renderer->cmdBuffs[renderer->crntFrame], &passBegin, VK_SUBPASS_CONTENTS_INLINE);
-
-    VkViewport viewport = {};
-    viewport.x = 0.0f;
-    viewport.y = 0.0f;
-    viewport.width = (float)renderer->backend.sc.extent.width;
-    viewport.height = (float)renderer->backend.sc.extent.height;
-    viewport.minDepth = 0.0f;
-    viewport.maxDepth = 1.0f;
-    vkCmdSetViewport(renderer->cmdBuffs[renderer->crntFrame], 0, 1, &viewport);
-
-    VkRect2D scissor = {};
-    scissor.offset = (VkOffset2D){0, 0};
-    scissor.extent = renderer->backend.sc.extent;
-    vkCmdSetScissor(renderer->cmdBuffs[renderer->crntFrame], 0, 1, &scissor);
-
-    bind_shader(&renderer->shader, &renderer->cmdBuffs[renderer->crntFrame]);
-    render_mesh(&renderer->mesh, &renderer->cmdBuffs[renderer->crntFrame]);
-
-    vkCmdEndRenderPass(renderer->cmdBuffs[renderer->crntFrame]);
-    bcknd_end_cmd_buff(&renderer->cmdBuffs[renderer->crntFrame]);
-}
-
-void renderer_render(renderer* renderer, window* window) {
+void renderer_begin_frame(renderer *renderer, window* window) {
     VK_CHECK(vkWaitForFences(renderer->backend.device.logical, 1, &renderer->inFlights[renderer->crntFrame], VK_TRUE, UINT64_MAX))
     VK_CHECK(vkResetFences(renderer->backend.device.logical, 1, &renderer->inFlights[renderer->crntFrame]))
 
-    uint32_t imgIdx;
-    VkResult result = vkAcquireNextImageKHR(renderer->backend.device.logical, renderer->backend.sc.swapchain, UINT64_MAX, renderer->imgAvailableSemas[renderer->crntFrame], VK_NULL_HANDLE, &imgIdx);
+    VkResult result = vkAcquireNextImageKHR(renderer->backend.device.logical, renderer->backend.sc.swapchain, UINT64_MAX, renderer->imgAvailableSemas[renderer->crntFrame], VK_NULL_HANDLE, &renderer->crntImgIdx);
     if(result == VK_ERROR_OUT_OF_DATE_KHR) {
         renderer_backend_handle_resize(&renderer->backend, window->window);
         return;
@@ -91,8 +53,53 @@ void renderer_render(renderer* renderer, window* window) {
     VK_CHECK(vkResetFences(renderer->backend.device.logical, 1, &renderer->inFlights[renderer->crntFrame]))
 
     VK_CHECK(vkResetCommandBuffer(renderer->cmdBuffs[renderer->crntFrame], 0))
-    renderer_record_render_cmds(renderer, imgIdx);
+}
 
+void renderer_record_render_cmds(renderer* renderer, uint32_t imgIdx) {
+    // Code for initializing Vulkan for rendering or in other words actually recording render commands to a command buffer
+    {
+        bcknd_begin_cmd_buff(&renderer->backend.device, &renderer->cmdBuffs[renderer->crntFrame]);
+
+        VkClearValue clear = {{{0.01f, 0.01f, 0.01f, 1.0f}}};
+        VkFramebuffer buff = renderer->backend.buffs[imgIdx];
+        
+        begin_renderpass(&renderer->backend.pass, renderer->cmdBuffs[renderer->crntFrame], buff, clear, renderer->backend.sc.extent, (VkOffset2D){0, 0});
+
+        // Setting the pipeline viewport and scissor
+        VkViewport viewport = {};
+        viewport.x = 0.0f;
+        viewport.y = 0.0f;
+        viewport.width = (float)renderer->backend.sc.extent.width;
+        viewport.height = (float)renderer->backend.sc.extent.height;
+        viewport.minDepth = 0.0f;
+        viewport.maxDepth = 1.0f;
+        vkCmdSetViewport(renderer->cmdBuffs[renderer->crntFrame], 0, 1, &viewport);
+
+        VkRect2D scissor = {};
+        scissor.offset = (VkOffset2D){0, 0};
+        scissor.extent = renderer->backend.sc.extent;
+        vkCmdSetScissor(renderer->cmdBuffs[renderer->crntFrame], 0, 1, &scissor);
+    }
+
+    // Actual rendering commands for rendering and binding objects
+    {
+        bind_shader(&renderer->shader, &renderer->cmdBuffs[renderer->crntFrame]);
+        render_mesh(&renderer->mesh, &renderer->cmdBuffs[renderer->crntFrame]);
+    }
+
+    end_renderpass(renderer->cmdBuffs[renderer->crntFrame]);
+    bcknd_end_cmd_buff(&renderer->cmdBuffs[renderer->crntFrame]);
+}
+
+void renderer_render(renderer* renderer, window* window) {
+    renderer_begin_frame(renderer, window);
+    renderer_record_render_cmds(renderer, renderer->crntImgIdx);
+    renderer_end_frame(renderer, window);
+
+    renderer->crntFrame = (renderer->crntFrame + 1) % MAX_FRAMES_IN_FLIGHT;
+}
+
+void renderer_end_frame(renderer *renderer, window* window) {
     VkPipelineStageFlags waitStages[] = {
         VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT
     };
@@ -112,22 +119,20 @@ void renderer_render(renderer* renderer, window* window) {
 
     VkPresentInfoKHR presentInfo = {
         .sType = VK_STRUCTURE_TYPE_PRESENT_INFO_KHR,
-        .pImageIndices = &imgIdx,
+        .pImageIndices = &renderer->crntImgIdx,
         .swapchainCount = 1,
         .pSwapchains = &renderer->backend.sc.swapchain,
         .waitSemaphoreCount = 1,
         .pWaitSemaphores = &renderer->renderFinishedSemas[renderer->crntFrame]
     };
 
-    result = vkQueuePresentKHR(renderer->backend.device.families.queue, &presentInfo);
+    VkResult result = vkQueuePresentKHR(renderer->backend.device.families.queue, &presentInfo);
     if(result == VK_ERROR_OUT_OF_DATE_KHR || result == VK_SUBOPTIMAL_KHR || window->resized) {
         renderer_backend_handle_resize(&renderer->backend, window->window);
     } else if(result != VK_SUCCESS) {
         char* msg = "VkResult is %s (line: %d, function: %s, file: %s)";
         FATAL(msg, string_VkResult(result), __LINE__, __func__, __FILE__);
     }
-
-    renderer->crntFrame = (renderer->crntFrame + 1) % MAX_FRAMES_IN_FLIGHT;
 }
 
 void renderer_shutdown(renderer* renderer) {

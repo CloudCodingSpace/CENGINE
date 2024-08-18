@@ -25,7 +25,7 @@
         "compounds": []
     },
     "explorer.confirmPasteNative": false,
-    "files.autoSave": "afterDelay",
+    "files.autoSave": "off",
     "terminal.integrated.cursorStyleInactive": "line",
     "workbench.iconTheme": "material-icon-theme",
     "workbench.colorTheme": "One Dark Pro",

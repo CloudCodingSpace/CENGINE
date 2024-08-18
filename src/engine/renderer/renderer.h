@@ -28,10 +28,13 @@ typedef struct renderer {
     mesh mesh;
 
     int crntFrame;
+    uint32_t crntImgIdx;
 } renderer;
 
 void renderer_initialize(renderer* renderer, window* window);
 void renderer_update(renderer* renderer);
+void renderer_begin_frame(renderer* renderer, window* window);
 void renderer_record_render_cmds(renderer* renderer, uint32_t imgIdx);
 void renderer_render(renderer* renderer, window* window);
+void renderer_end_frame(renderer* renderer, window* window);
 void renderer_shutdown(renderer* renderer);

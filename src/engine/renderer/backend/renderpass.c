@@ -52,6 +52,28 @@ void create_renderpass(renderpass* pass, device* device, swapchain* sc) {
     VK_CHECK(vkCreateRenderPass(device->logical, &info, 0, &pass->pass))
 }
 
+void begin_renderpass(renderpass *pass, 
+            VkCommandBuffer buff, 
+            VkFramebuffer frameBuff, 
+            VkClearValue clear, 
+            VkExtent2D extent, 
+            VkOffset2D offset) {
+    VkRenderPassBeginInfo passBegin = {
+            .sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO,
+            .clearValueCount = 1,
+            .pClearValues = &clear,
+            .framebuffer = frameBuff,
+            .renderArea.offset = offset,
+            .renderArea.extent = extent,
+            .renderPass = pass->pass
+        };
+        vkCmdBeginRenderPass(buff, &passBegin, VK_SUBPASS_CONTENTS_INLINE);
+}
+
+void end_renderpass(VkCommandBuffer buff) {
+    vkCmdEndRenderPass(buff);
+}
+
 void destroy_renderpass(renderpass* pass, device* device) {
     vkDestroyRenderPass(device->logical, pass->pass, 0);
 }

@@ -12,4 +12,13 @@ typedef struct renderpass {
 } renderpass;
 
 void create_renderpass(renderpass* pass, device* device, swapchain* sc);
+
+void begin_renderpass(renderpass *pass, 
+            VkCommandBuffer buff, 
+            VkFramebuffer frameBuff, 
+            VkClearValue clear, 
+            VkExtent2D extent, 
+            VkOffset2D offset);
+void end_renderpass(VkCommandBuffer buff);
+
 void destroy_renderpass(renderpass* pass, device* device);
