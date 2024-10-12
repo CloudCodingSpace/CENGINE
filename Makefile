@@ -31,9 +31,11 @@ OBJS_BIN:=$(patsubst %,bin/%,$(OBJS))
 all: createdirs build
 
 createdirs:
-	@for dir in $(DIRS); do \
-		mkdir -p bin/$$dir; \
-	done
+	@for %%D in ($(DIRS)) do ( \
+		if not exist bin/%%D ( \
+			mkdir bin/%%D \
+		) \
+	)
 
 build: build_shaders $(OBJS) $(VERTSPV) $(FRAGSPV)
 	echo "Linking the final binary..."
@@ -52,4 +54,4 @@ run:
 # Rules
 %.o: %.c
 	echo "Compiling bin/$@ from source file $^..."
-	$(CC) -g -c $(DEFINES) $(INCLUDEP) $^ -o ./bin/$@
+	$(CC) -g --std=c17 -c $(DEFINES) $(INCLUDEP) $^ -o ./bin/$@

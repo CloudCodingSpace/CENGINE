@@ -28,6 +28,9 @@ void create_shader(shader* shader,
                renderpass* pass, 
                const char* vertSpvPth, 
                const char* fragSpvPth, 
-               VkExtent2D extent);
-void bind_shader(shader* shader, VkCommandBuffer* buff);
+               VkExtent2D extent,
+               VkFrontFace face, 
+               uint32_t desc_layout_count, 
+               VkDescriptorSetLayout* desc_layouts);
+void bind_shader(shader* shader, VkCommandBuffer* buff, bool bindDesc, VkDescriptorSet* set);
 void destroy_shader(shader* shader, device* device);

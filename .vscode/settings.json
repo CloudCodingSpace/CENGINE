@@ -34,6 +34,16 @@
     "files.associations": {
         "image.h": "c",
         "renderer.h": "c",
-        "mesh.h": "c"
-    }
+        "mesh.h": "c",
+        "descriptor.h": "c",
+        "vulkan.h": "c",
+        "buffer.h": "c",
+        "vulkan_core.h": "c",
+        "array": "c",
+        "string_view": "c",
+        "format": "c",
+        "initializer_list": "c",
+        "span": "c"
+    },
+    "makefile.configureOnOpen": true
 }

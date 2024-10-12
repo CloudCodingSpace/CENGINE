@@ -27,7 +27,8 @@ void bcknd_create_graphics_shader_pipeline(VkPipeline* pipe,
         renderpass* pass, 
         VkShaderModule vertMod, 
         VkShaderModule fragMod, 
-        VkExtent2D extent) {
+        VkExtent2D extent,
+        VkFrontFace face) {
 
     VkPipelineInputAssemblyStateCreateInfo asmState = {
         .sType = VK_STRUCTURE_TYPE_PIPELINE_INPUT_ASSEMBLY_STATE_CREATE_INFO,
@@ -102,7 +103,7 @@ void bcknd_create_graphics_shader_pipeline(VkPipeline* pipe,
         .lineWidth = 1.0f,
         .depthClampEnable = VK_FALSE,
         .rasterizerDiscardEnable = VK_FALSE,
-        .frontFace = VK_FRONT_FACE_CLOCKWISE
+        .frontFace = face
     };
 
     VkPipelineMultisampleStateCreateInfo multiSmplState = {
