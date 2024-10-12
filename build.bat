@@ -8,8 +8,8 @@ for /R %%f in (*.c) do (
 	set srcs=!srcs! %%f
 )
 
-set includep=-Iinclude -Isrc -Isrc/engine
-set libp=-Llib
+set includep=-Iinclude -Isrc -Isrc/engine -I%VULKAN_SDK%/Include
+set libp=-Llib -L%VULKAN_SDK%/Lib
 set defines=-D_DEBUG -D_WIN32
 set linkerflags=-lvulkan-1 -lglfw3dll
 

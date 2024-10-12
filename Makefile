@@ -10,8 +10,8 @@ endef
 TARGET=engine.exe
 CC=gcc
 DEFINES:=-D_DEBUG -D_WIN32
-INCLUDEP:=-Iinclude -Isrc -Isrc/engine
-LIBP:=-Llib
+INCLUDEP:=-Iinclude -Isrc -Isrc/engine -I$(VULKAN_SDK)/Include
+LIBP:=-Llib -L$(VULKAN_SDK)/Lib
 LINKFLAGS:=-lglfw3dll -lvulkan-1
 
 SRCS:=$(call recurfind,src,*.c)
