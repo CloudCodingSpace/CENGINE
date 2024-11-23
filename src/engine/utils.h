@@ -14,7 +14,7 @@ uint32_t clamp_uint(uint32_t n, uint32_t min, uint32_t max);
 char* read_file(const char* path, size_t* count, const char* mode);
 
 #define MAX_FRAMES_IN_FLIGHT 2
-#define INVALID_IDX 2
+#define INVALID_IDX UINT32_MAX
 
 #ifndef true
     #define true 1
