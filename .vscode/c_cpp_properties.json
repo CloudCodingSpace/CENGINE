@@ -4,7 +4,8 @@
             "name": "Win32",
             "includePath": [
                 "${workspaceFolder}/src",
-                "${workspaceFolder}/include"
+                "${workspaceFolder}/include",
+                "${VULKAN_SDK}/Include"
             ],
             "defines": [
                 "DEBUG",
@@ -12,7 +13,6 @@
                 "UNICODE",
                 "_UNICODE"
             ],
-            "windowsSdkVersion": "10.0.22621.0",
             "cStandard": "c23",
             "cppStandard": "c++23",
             "intelliSenseMode": "gcc-x64"

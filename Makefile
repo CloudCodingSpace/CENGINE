@@ -3,11 +3,7 @@ define recurfind
 	$(wildcard $(1)/$(2)) $(foreach dir,$(wildcard $(1)/*),$(call recurfind,$(dir),$(2)))
 endef
 
-define find_subdirs
-  $(wildcard $(1)*/) $(foreach dir,$(wildcard $(1)*/),$(call find_subdirs,$(dir)))
-endef
-
-TARGET=engine.exe
+TARGET=engine
 CC=gcc
 DEFINES:=-D_DEBUG -D_WIN32
 INCLUDEP:=-Iinclude -Isrc -Isrc/engine -I$(VULKAN_SDK)/Include
@@ -23,7 +19,6 @@ OBJS=$(patsubst %.c,%.o,$(SRCS))
 DIRS:=$(dir $(SRCS))
 OBJS_BIN:=$(patsubst %,bin/%,$(OBJS))
 
-
 # Recipes
 .SILENT:
 .PHONY: all
@@ -31,11 +26,12 @@ OBJS_BIN:=$(patsubst %,bin/%,$(OBJS))
 all: createdirs build
 
 createdirs:
+ifeq ($(OS),Windows_NT)
 	@for %%D in ($(DIRS)) do ( \
-		if not exist bin/%%D ( \
-			mkdir bin/%%D \
-		) \
-	)
+		if not exist "bin\%%~D" mkdir "bin\%%~D" )
+else
+	@mkdir -p $(patsubst %/,bin/%,$(DIRS))
+endif
 
 build: build_shaders $(OBJS) $(VERTSPV) $(FRAGSPV)
 	echo "Linking the final binary..."
@@ -48,8 +44,18 @@ build_shaders:
 	glslc $(FRAGS) -o $(FRAGSPV)
 
 run:
-	echo "Running the binary..."
-	./engine
+	echo "Running $(TARGET)..."
+	./$(TARGET)
+
+clean:
+	echo "Cleaning up..."
+ifeq ($(OS),Windows_NT)
+	@if exist bin (rmdir /s /q bin)
+	@if exist $(TARGET).exe del /q /f $(TARGET).exe
+	@for %%F in (*.vert.spv *.frag.spv) do (if exist %%F del /q /f %%F)
+else
+	rm -rf bin $(TARGET) *.vert.spv *.frag.spv
+endif
 
 # Rules
 %.o: %.c
