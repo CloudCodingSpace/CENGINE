@@ -3,7 +3,7 @@
     "configurations": [
         {
             "name": "Proj. Launch",
-            "program": "${workspaceFolder}/engine.exe",
+            "program": "${workspaceFolder}/build/Debug/cengine.exe",
             "type": "cppdbg",
             "request": "launch",
             "cwd": "${workspaceFolder}",
