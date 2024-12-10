@@ -1,7 +1,7 @@
 #include "image.h"
 
 void bcknd_create_image(image* img, 
-        device* device, 
+        Device* device, 
         VkFormat format, 
         VkExtent3D extent, 
         VkImageTiling tiling, 
@@ -57,7 +57,7 @@ void bcknd_create_image(image* img,
     }
 }
 
-void bcknd_destroy_image(image* img, device* device) {
+void bcknd_destroy_image(image* img, Device* device) {
     vkDestroyImage(device->logical, img->img, 0);
     vkDestroyImageView(device->logical, img->view, 0);
     vkFreeMemory(device->logical, img->imgMem, 0);

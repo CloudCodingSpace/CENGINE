@@ -13,18 +13,18 @@
 #include "renderpass.h"
 #include "framebuffer.h"
 
-typedef struct renderer_backend {
+typedef struct {
 #ifdef _DEBUG
-    debugger debugger;
+    Debugger debugger;
 #endif
-    instance instance;
-    win_surface surface;
-    device device;
-    swapchain sc;
-    renderpass pass;
+    Instance instance;
+    Surface surface;
+    Device device;
+    Swapchain sc;
+    Renderpass pass;
     VkFramebuffer* buffs;
-} renderer_backend;
+} RendererBackend;
 
-void renderer_backend_initialize(renderer_backend* backend, GLFWwindow* window);
-void renderer_backend_handle_resize(renderer_backend* backend, GLFWwindow* window);
-void renderer_backend_shutdown(renderer_backend* backend);
+void renderer_backend_initialize(RendererBackend* backend, GLFWwindow* window);
+void renderer_backend_handle_resize(RendererBackend* backend, GLFWwindow* window);
+void renderer_backend_shutdown(RendererBackend* backend);

@@ -7,13 +7,13 @@
 
 #include <stdbool.h>
 
-typedef struct engine {
-    window window;
-    renderer renderer;
-} engine;
+typedef struct {
+    Window window;
+    Renderer renderer;
+} Engine;
 
-void engine_initialize(engine* engine);
-void engine_update(engine* engine);
-void engine_render(engine* engine);
-void engine_run(engine* engine);
-void engine_shutdown(engine* engine);
+void engine_initialize(Engine* engine);
+void engine_update(Engine* engine);
+void engine_render(Engine* engine);
+void engine_run(Engine* engine);
+void engine_shutdown(Engine* engine);

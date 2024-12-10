@@ -14,11 +14,11 @@ typedef struct image {
 } image;
 
 void bcknd_create_image(image* img, 
-        device* device, 
+        Device* device, 
         VkFormat format, 
         VkExtent3D extent, 
         VkImageTiling tiling, 
         VkImageUsageFlags usage, 
         VkImageAspectFlagBits flags, 
         VkMemoryPropertyFlags memFlags);
-void bcknd_destroy_image(image* img, device* device);
+void bcknd_destroy_image(image* img, Device* device);

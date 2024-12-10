@@ -6,9 +6,9 @@
 #include <engine/utils.h>
 #include "debugger.h"
 
-typedef struct instance {
+typedef struct {
     VkInstance instance;
-} instance;
+} Instance;
 
-void create_instance(instance* inst);
-void destroy_instance(instance* inst);
+void create_instance(Instance* inst);
+void destroy_instance(Instance* inst);

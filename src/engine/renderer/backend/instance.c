@@ -1,6 +1,6 @@
 #include "instance.h"
 
-void create_instance(instance* inst) {
+void create_instance(Instance* inst) {
     VkApplicationInfo appInfo = {
         .sType = VK_STRUCTURE_TYPE_APPLICATION_INFO,
         .pApplicationName = "CENGINE ",
@@ -21,7 +21,7 @@ void create_instance(instance* inst) {
     const char** exts = get_debugger_exts();
     VkDebugUtilsMessengerCreateInfoEXT debgInfo = get_debugger_info();
     uint32_t count = get_debugger_exts_count();
-    const char* layer[] = {LAYERNAME};
+    const char* layer[] = {DBG_LAYERNAME};
 
     createInfo.enabledExtensionCount = count;
     createInfo.ppEnabledExtensionNames = exts;
@@ -40,6 +40,6 @@ void create_instance(instance* inst) {
     VK_CHECK(vkCreateInstance(&createInfo, 0, &inst->instance))
 }
 
-void destroy_instance(instance* inst) {
+void destroy_instance(Instance* inst) {
     vkDestroyInstance(inst->instance, 0);
 }

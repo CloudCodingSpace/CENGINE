@@ -1,13 +1,13 @@
 #include "swapchain.h"
 
-void get_swapchain_imgs(swapchain* sc, device* device) {
+void get_swapchain_imgs(Swapchain*  sc, Device* device) {
     sc->imgCount = 0;
     VK_CHECK(vkGetSwapchainImagesKHR(device->logical, sc->swapchain, &sc->imgCount, 0))
     sc->imgs = (VkImage*) calloc(sc->imgCount, sizeof(VkImage));
     VK_CHECK(vkGetSwapchainImagesKHR(device->logical, sc->swapchain, &sc->imgCount, sc->imgs))
 }
 
-void create_swapchain_img_views(swapchain* sc, device* device) {
+void create_swapchain_img_views(Swapchain*  sc, Device* device) {
     sc->imgViews = (VkImageView*) calloc(sc->imgCount, sizeof(VkImageView));
 
     for(uint32_t i = 0; i < sc->imgCount; i++) {
@@ -33,7 +33,7 @@ void create_swapchain_img_views(swapchain* sc, device* device) {
     }
 }
 
-void destroy_swapchain_img_views(swapchain* sc, device* device) {
+void destroy_swapchain_img_views(Swapchain*  sc, Device* device) {
     for(uint32_t i = 0; i < sc->imgCount; i++) {
         vkDestroyImageView(device->logical, sc->imgViews[i], 0);
     }
@@ -41,7 +41,7 @@ void destroy_swapchain_img_views(swapchain* sc, device* device) {
     free(sc->imgViews);
 }
 
-void select_sc_format(swapchain* sc) {
+void select_sc_format(Swapchain*  sc) {
     for(uint32_t i = 0; i < sc->caps.formatCount; i++) {
         if((sc->caps.formats[i].format == VK_FORMAT_B8G8R8A8_SRGB) && (sc->caps.formats[i].colorSpace == VK_COLOR_SPACE_SRGB_NONLINEAR_KHR)) {
             sc->format = sc->caps.formats[i];
@@ -52,7 +52,7 @@ void select_sc_format(swapchain* sc) {
     sc->format = sc->caps.formats[0];
 }
 
-void select_sc_mode(swapchain* sc) {    
+void select_sc_mode(Swapchain*  sc) {    
     for(uint32_t i = 0; i < sc->caps.modeCount; i++) {
         if(sc->caps.modes[i] == VK_PRESENT_MODE_MAILBOX_KHR) {
             sc->mode = sc->caps.modes[i];
@@ -62,7 +62,7 @@ void select_sc_mode(swapchain* sc) {
     sc->mode = VK_PRESENT_MODE_FIFO_KHR;
 }
 
-void select_sc_extent(swapchain* sc, GLFWwindow* window) {
+void select_sc_extent(Swapchain*  sc, GLFWwindow* window) {
     if(sc->caps.caps.currentExtent.width != UINT32_MAX) {
         sc->extent = sc->caps.caps.currentExtent;
     } 
@@ -82,7 +82,7 @@ void select_sc_extent(swapchain* sc, GLFWwindow* window) {
     }
 }
 
-void create_swapchain(swapchain *sc, instance *inst, device *device, win_surface *surface, GLFWwindow* win_ptr)
+void create_swapchain(Swapchain*  sc, Instance *inst, Device *device, Surface* surface, GLFWwindow* win_ptr)
 {
     sc->caps = get_physical_device_caps(device->physical, surface->surface);
     select_sc_mode(sc);
@@ -127,7 +127,7 @@ void create_swapchain(swapchain *sc, instance *inst, device *device, win_surface
                     VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT);
 }
 
-void destroy_swapchain(swapchain* sc, device* device) {
+void destroy_swapchain(Swapchain*  sc, Device* device) {
     bcknd_destroy_image(&sc->depthImg, device);
     destroy_swapchain_img_views(sc, device);
     free(sc->imgs);

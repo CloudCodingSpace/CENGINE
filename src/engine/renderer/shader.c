@@ -2,8 +2,8 @@
 
 void create_shader(shader* shader,
                shader_type type, 
-               device* device,
-               renderpass* pass, 
+               Device* device,
+               Renderpass*  pass, 
                const char* vertSpvPth, 
                const char* fragSpvPth, 
                VkExtent2D extent,
@@ -61,7 +61,7 @@ void bind_shader(shader* shader, VkCommandBuffer* buff, bool bindDesc, VkDescrip
     vkCmdBindPipeline(*buff, point, shader->pipeline);
 }
 
-void destroy_shader(shader* shader, device* device) {
+void destroy_shader(shader* shader, Device* device) {
     bcknd_destroy_shader_module(&shader->vertMod, device);
     bcknd_destroy_shader_module(&shader->fragMod, device);
     vkDestroyPipelineLayout(device->logical, shader->pipelineLayout, 0);

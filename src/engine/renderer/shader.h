@@ -24,8 +24,8 @@ typedef struct shader {
 
 void create_shader(shader* shader,
                shader_type type, 
-               device* device,
-               renderpass* pass, 
+               Device* device,
+               Renderpass*  pass, 
                const char* vertSpvPth, 
                const char* fragSpvPth, 
                VkExtent2D extent,
@@ -33,4 +33,4 @@ void create_shader(shader* shader,
                uint32_t desc_layout_count, 
                VkDescriptorSetLayout* desc_layouts);
 void bind_shader(shader* shader, VkCommandBuffer* buff, bool bindDesc, VkDescriptorSet* set);
-void destroy_shader(shader* shader, device* device);
+void destroy_shader(shader* shader, Device* device);

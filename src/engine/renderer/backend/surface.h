@@ -6,9 +6,9 @@
 #include <engine/utils.h>
 #include "instance.h"
 
-typedef struct win_surface {
+typedef struct {
     VkSurfaceKHR surface;
-} win_surface;
+} Surface;
 
-void create_win_surface(win_surface* surface, instance* inst, GLFWwindow* window);
-void destroy_win_surface(win_surface* surface, instance* inst);
+void create_win_surface(Surface* surface, Instance* inst, GLFWwindow* window);
+void destroy_win_surface(Surface* surface, Instance* inst);

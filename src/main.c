@@ -4,7 +4,7 @@
 #include "engine/engine.h"
 
 int main(int argc, const char** argv) {
-    engine engine;
+    Engine engine;
     engine_initialize(&engine);
     engine_run(&engine);
     engine_shutdown(&engine);

@@ -43,7 +43,14 @@
         "string_view": "c",
         "format": "c",
         "initializer_list": "c",
-        "span": "c"
+        "span": "c",
+        "engine.h": "c",
+        "backend.h": "c",
+        "device.h": "c",
+        "debugger.h": "c",
+        "swapchain.h": "c",
+        "renderpass.h": "c",
+        "framebuffer.h": "c"
     },
     "makefile.configureOnOpen": true
 }

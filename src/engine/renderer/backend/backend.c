@@ -1,8 +1,8 @@
 #include "backend.h"
 
-void renderer_backend_initialize(renderer_backend* ctx, GLFWwindow* window) {
+void renderer_backend_initialize(RendererBackend* ctx, GLFWwindow* window) {
 #ifdef _DEBUG
-    if(!check_extensions()) {
+    if(!check_dbg_extensions()) {
         FATAL("Debug mode but debugger extensions not available!")
     }
 #endif
@@ -25,7 +25,7 @@ void renderer_backend_initialize(renderer_backend* ctx, GLFWwindow* window) {
     }
 }
 
-void renderer_backend_handle_resize(renderer_backend *ctx, GLFWwindow *window) {
+void renderer_backend_handle_resize(RendererBackend* ctx, GLFWwindow *window) {
     // Handling minimize
     int width = 0, height = 0;
     glfwGetFramebufferSize(window, &width, &height);
@@ -50,7 +50,7 @@ void renderer_backend_handle_resize(renderer_backend *ctx, GLFWwindow *window) {
     }
 }
 
-void renderer_backend_shutdown(renderer_backend* ctx) {
+void renderer_backend_shutdown(RendererBackend* ctx) {
     for(uint32_t i = 0; i < ctx->sc.imgCount; i++) {
         destroy_framebuffer(&ctx->buffs[i], &ctx->device);
     }

@@ -6,7 +6,7 @@
             "program": "${workspaceFolder}/build/Debug/cengine.exe",
             "type": "cppdbg",
             "request": "launch",
-            "cwd": "${workspaceFolder}",
+            "cwd": "${workspaceFolder}/build/Debug",
             "externalConsole": true,
             "stopAtEntry": false
         }

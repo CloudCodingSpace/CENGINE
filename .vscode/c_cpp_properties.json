@@ -4,7 +4,10 @@
             "name": "Win32",
             "includePath": [
                 "${workspaceFolder}/src",
-                "${workspaceFolder}/include",
+                "${workspaceFolder}/libs/stb/include",
+                "${workspaceFolder}/libs/glfw/include",
+                "${workspaceFolder}/libs/tinyobjloader/include",
+                "${workspaceFolder}/libs",
                 "${VULKAN_SDK}/Include"
             ],
             "defines": [

@@ -1,6 +1,6 @@
 #include "shader.h"
 
-VkShaderModule bcknd_create_shader_module(const char* path, device* device) {
+VkShaderModule bcknd_create_shader_module(const char* path, Device* device) {
     VkShaderModule mod;
 
     size_t size = 0;
@@ -17,14 +17,14 @@ VkShaderModule bcknd_create_shader_module(const char* path, device* device) {
 }
 
 
-void bcknd_destroy_shader_module(VkShaderModule* mod, device* device) {
+void bcknd_destroy_shader_module(VkShaderModule* mod, Device* device) {
     vkDestroyShaderModule(device->logical, *mod, 0);
 }
 
 void bcknd_create_graphics_shader_pipeline(VkPipeline* pipe, 
         VkPipelineLayout lay, 
-        device* device, 
-        renderpass* pass, 
+        Device* device, 
+        Renderpass*  pass, 
         VkShaderModule vertMod, 
         VkShaderModule fragMod, 
         VkExtent2D extent,
@@ -155,6 +155,6 @@ void bcknd_create_graphics_shader_pipeline(VkPipeline* pipe,
     VK_CHECK(vkCreateGraphicsPipelines(device->logical, VK_NULL_HANDLE, 1, &info, 0, pipe));
 }
 
-void bcknd_destroy_shader_pipeline(device* device, VkPipeline* pipe) {
+void bcknd_destroy_shader_pipeline(Device* device, VkPipeline* pipe) {
     vkDestroyPipeline(device->logical, *pipe, 0);
 }

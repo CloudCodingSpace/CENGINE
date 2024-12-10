@@ -13,18 +13,18 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef struct debugger {
+typedef struct {
     VkDebugUtilsMessengerEXT debugger;
-} debugger;
+} Debugger;
 
-#define LAYERNAME "VK_LAYER_KHRONOS_validation"
+#define DBG_LAYERNAME "VK_LAYER_KHRONOS_validation"
 
-bool check_extensions();
+bool check_dbg_extensions();
 VkDebugUtilsMessengerCreateInfoEXT get_debugger_info();
 const char** get_debugger_exts();
 uint32_t get_debugger_exts_count();
 
-void create_debugger(debugger* debugger, VkInstance instance);
-void destroy_debugger(debugger* debugger, VkInstance instance);
+void create_debugger(Debugger* debugger, VkInstance instance);
+void destroy_debugger(Debugger* debugger, VkInstance instance);
 
 #endif

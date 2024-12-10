@@ -1,6 +1,6 @@
 #include "framebuffer.h"
 
-void create_framebuffer(VkFramebuffer *out, device *device, VkImageView *view, uint32_t count, VkExtent2D extent, renderpass *pass) {
+void create_framebuffer(VkFramebuffer *out, Device *device, VkImageView *view, uint32_t count, VkExtent2D extent, Renderpass* pass) {
     VkFramebufferCreateInfo info = {
         .sType = VK_STRUCTURE_TYPE_FRAMEBUFFER_CREATE_INFO,
         .attachmentCount = count,
@@ -14,6 +14,6 @@ void create_framebuffer(VkFramebuffer *out, device *device, VkImageView *view, u
     VK_CHECK(vkCreateFramebuffer(device->logical, &info, 0, out))
 }
 
-void destroy_framebuffer(VkFramebuffer *out, device *device) {
+void destroy_framebuffer(VkFramebuffer *out, Device *device) {
     vkDestroyFramebuffer(device->logical, *out, 0);
 }

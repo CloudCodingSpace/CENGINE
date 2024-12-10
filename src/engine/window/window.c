@@ -1,13 +1,13 @@
 #include "window.h"
 
 static void window_resize_callback(GLFWwindow* win, int width, int height) {
-    window* window = glfwGetWindowUserPointer(win);
+    Window* window = glfwGetWindowUserPointer(win);
     window->width = width;
     window->height = height;
     window->resized = true;
 }
 
-void window_initialize(window* window) {
+void window_initialize(Window* window) {
     window->resized = false;
 
     if(!glfwInit())
@@ -25,20 +25,20 @@ void window_initialize(window* window) {
     glfwSetFramebufferSizeCallback(window->window, window_resize_callback);
 }
 
-void window_update(window *window) {
+void window_update(Window* window) {
     
     glfwPollEvents();
 }
 
-void window_show(window *window) {
+void window_show(Window* window) {
     glfwShowWindow(window->window);
 }
 
-void window_shutdown(window* window) {
+void window_shutdown(Window* window) {
     glfwDestroyWindow(window->window);
     glfwTerminate();
 }
 
-bool window_is_close_button_pressed(window *window) {
+bool window_is_close_button_pressed(Window *window) {
     return glfwWindowShouldClose(window->window);
 }

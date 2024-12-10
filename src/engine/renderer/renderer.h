@@ -17,8 +17,8 @@
 
 #include <stdint.h>
 
-typedef struct renderer {
-    renderer_backend backend;
+typedef struct {
+    RendererBackend backend;
 
     VkCommandPool cmdPool;
     VkCommandBuffer cmdBuffs[MAX_FRAMES_IN_FLIGHT];
@@ -40,12 +40,12 @@ typedef struct renderer {
 
     int crntFrame;
     uint32_t crntImgIdx;
-} renderer;
+} Renderer;
 
-void renderer_initialize(renderer* renderer, window* window);
-void renderer_update(renderer* renderer);
-void renderer_begin_frame(renderer* renderer, window* window);
-void renderer_record_render_cmds(renderer* renderer, uint32_t imgIdx);
-void renderer_render(renderer* renderer, window* window);
-void renderer_end_frame(renderer* renderer, window* window);
-void renderer_shutdown(renderer* renderer);
+void renderer_initialize(Renderer* renderer, Window* window);
+void renderer_update(Renderer* renderer);
+void renderer_begin_frame(Renderer* renderer, Window* window);
+void renderer_record_render_cmds(Renderer* renderer, uint32_t imgIdx);
+void renderer_render(Renderer* renderer, Window* window);
+void renderer_end_frame(Renderer* renderer, Window* window);
+void renderer_shutdown(Renderer* renderer);

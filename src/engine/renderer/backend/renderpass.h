@@ -7,13 +7,13 @@
 #include "device.h"
 #include "swapchain.h"
 
-typedef struct renderpass {
+typedef struct {
     VkRenderPass pass;
-} renderpass;
+} Renderpass;
 
-void create_renderpass(renderpass* pass, device* device, swapchain* sc);
+void create_renderpass(Renderpass*  pass, Device* device, Swapchain*  sc);
 
-void begin_renderpass(renderpass *pass, 
+void begin_renderpass(Renderpass*  pass, 
             VkCommandBuffer buff, 
             VkFramebuffer frameBuff, 
             VkClearValue clear, 
@@ -21,4 +21,4 @@ void begin_renderpass(renderpass *pass,
             VkOffset2D offset);
 void end_renderpass(VkCommandBuffer buff);
 
-void destroy_renderpass(renderpass* pass, device* device);
+void destroy_renderpass(Renderpass*  pass, Device* device);

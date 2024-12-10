@@ -10,19 +10,19 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
-typedef struct queue_families {
+typedef struct {
     uint32_t qIdx;
 
     VkQueue queue;
-} queue_families;
+} QueueFamilies;
 
-typedef struct device {
+typedef struct {
     VkFormat depthFormat;
     VkPhysicalDevice physical;
     VkDevice logical;
 
-    queue_families families;
-} device;
+    QueueFamilies families;
+} Device;
 
 typedef struct physical_device_sc_caps {
     VkSurfaceCapabilitiesKHR caps;
@@ -38,13 +38,13 @@ bool get_depth_format(VkPhysicalDevice device, VkFormat* format);
 bool is_device_extensions_supported(VkPhysicalDevice device);
 
 bool is_device_usable(VkPhysicalDevice device, VkSurfaceKHR surface);
-void select_physical_device(device* device, instance* instance, VkSurfaceKHR surface);
+void select_physical_device(Device* device, Instance* instance, VkSurfaceKHR surface);
 
 physical_device_sc_caps get_physical_device_caps(VkPhysicalDevice device, VkSurfaceKHR surface);
 
-bool is_queue_family_complete(queue_families* family);
-queue_families find_queue_families(VkPhysicalDevice device, VkSurfaceKHR surface);
-void retrive_queue_objects(device* device);
+bool is_queue_family_complete(QueueFamilies* family);
+QueueFamilies find_queue_families(VkPhysicalDevice device, VkSurfaceKHR surface);
+void retrive_queue_objects(Device* device);
 
-void create_device(device* device, instance* instance, VkSurfaceKHR surface);
-void destroy_device(device* device);
+void create_device(Device* device, Instance* instance, VkSurfaceKHR surface);
+void destroy_device(Device* device);

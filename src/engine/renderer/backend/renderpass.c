@@ -1,6 +1,6 @@
 #include "renderpass.h"
 
-void create_renderpass(renderpass* pass, device* device, swapchain* sc) {
+void create_renderpass(Renderpass*  pass, Device* device, Swapchain*  sc) {
     VkAttachmentDescription colorAttachment = {
         .format = sc->format.format,
         .initialLayout = VK_IMAGE_LAYOUT_UNDEFINED,
@@ -52,7 +52,7 @@ void create_renderpass(renderpass* pass, device* device, swapchain* sc) {
     VK_CHECK(vkCreateRenderPass(device->logical, &info, 0, &pass->pass))
 }
 
-void begin_renderpass(renderpass *pass, 
+void begin_renderpass(Renderpass* pass, 
             VkCommandBuffer buff, 
             VkFramebuffer frameBuff, 
             VkClearValue clear, 
@@ -74,6 +74,6 @@ void end_renderpass(VkCommandBuffer buff) {
     vkCmdEndRenderPass(buff);
 }
 
-void destroy_renderpass(renderpass* pass, device* device) {
+void destroy_renderpass(Renderpass*  pass, Device* device) {
     vkDestroyRenderPass(device->logical, pass->pass, 0);
 }

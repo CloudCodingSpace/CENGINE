@@ -1,6 +1,6 @@
 #include "renderer.h"
 
-void renderer_initialize(renderer* renderer, window* window) {
+void renderer_initialize(Renderer* renderer, Window* window) {
     // Renderering setup
     {
         renderer->crntFrame = 0;
@@ -87,11 +87,11 @@ void renderer_initialize(renderer* renderer, window* window) {
     }
 }
 
-void renderer_update(renderer* renderer) {
+void renderer_update(Renderer* renderer) {
     
 }
 
-void renderer_begin_frame(renderer* renderer, window* window) {
+void renderer_begin_frame(Renderer* renderer, Window* window) {
     VK_CHECK(vkWaitForFences(renderer->backend.device.logical, 1, &renderer->inFlights[renderer->crntFrame], VK_TRUE, UINT64_MAX))
     VK_CHECK(vkResetFences(renderer->backend.device.logical, 1, &renderer->inFlights[renderer->crntFrame]))
 
@@ -126,7 +126,7 @@ void renderer_begin_frame(renderer* renderer, window* window) {
     VK_CHECK(vkResetCommandBuffer(renderer->cmdBuffs[renderer->crntFrame], 0))
 }
 
-void renderer_record_render_cmds(renderer* renderer, uint32_t imgIdx) {
+void renderer_record_render_cmds(Renderer* renderer, uint32_t imgIdx) {
     // Code for initializing Vulkan for rendering or in other words actually recording render commands to a command buffer
     {
         bcknd_begin_cmd_buff(&renderer->backend.device, &renderer->cmdBuffs[renderer->crntFrame]);
@@ -162,7 +162,7 @@ void renderer_record_render_cmds(renderer* renderer, uint32_t imgIdx) {
     bcknd_end_cmd_buff(&renderer->cmdBuffs[renderer->crntFrame]);
 }
 
-void renderer_render(renderer* renderer, window* window) {
+void renderer_render(Renderer* renderer, Window* window) {
     renderer_begin_frame(renderer, window);
     renderer_record_render_cmds(renderer, renderer->crntImgIdx);
     renderer_end_frame(renderer, window);
@@ -170,7 +170,7 @@ void renderer_render(renderer* renderer, window* window) {
     renderer->crntFrame = (renderer->crntFrame + 1) % MAX_FRAMES_IN_FLIGHT;
 }
 
-void renderer_end_frame(renderer *renderer, window* window) {
+void renderer_end_frame(Renderer* renderer, Window* window) {
     VkPipelineStageFlags waitStages[] = {
         VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT
     };
@@ -206,7 +206,7 @@ void renderer_end_frame(renderer *renderer, window* window) {
     }
 }
 
-void renderer_shutdown(renderer* renderer) {
+void renderer_shutdown(Renderer* renderer) {
     for(int i = 0; i < MAX_FRAMES_IN_FLIGHT; i++) {
         destroy_buffer(&renderer->ubo[i], &renderer->backend.device);
     }

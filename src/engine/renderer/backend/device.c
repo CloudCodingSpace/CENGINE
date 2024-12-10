@@ -52,7 +52,7 @@ bool is_device_extensions_supported(VkPhysicalDevice device)
 
 bool is_device_usable(VkPhysicalDevice device, VkSurfaceKHR surface)
 {
-    queue_families families = find_queue_families(device, surface);
+    QueueFamilies families = find_queue_families(device, surface);
 
     physical_device_sc_caps caps = get_physical_device_caps(device, surface);
     VkFormat depthFormat;
@@ -60,7 +60,7 @@ bool is_device_usable(VkPhysicalDevice device, VkSurfaceKHR surface)
     return is_queue_family_complete(&families) && is_device_extensions_supported(device) && caps.modeCount && caps.formatCount && get_depth_format(device, &depthFormat);
 }
 
-void select_physical_device(device* device, instance* instance, VkSurfaceKHR surface) {
+void select_physical_device(Device* device, Instance* instance, VkSurfaceKHR surface) {
     uint32_t count = 0;
     vkEnumeratePhysicalDevices(instance->instance, &count, 0);
     VkPhysicalDevice* devices = (VkPhysicalDevice*) calloc(count, sizeof(VkPhysicalDevice));
@@ -103,13 +103,13 @@ physical_device_sc_caps get_physical_device_caps(VkPhysicalDevice device, VkSurf
     return caps;
 }
 
-bool is_queue_family_complete(queue_families *family)
+bool is_queue_family_complete(QueueFamilies *family)
 {
     return (family->qIdx != INVALID_IDX);
 }
 
-queue_families find_queue_families(VkPhysicalDevice device, VkSurfaceKHR surface) {
-    queue_families families;
+QueueFamilies find_queue_families(VkPhysicalDevice device, VkSurfaceKHR surface) {
+    QueueFamilies families;
 
     uint32_t qFamilyCount = 0;
     vkGetPhysicalDeviceQueueFamilyProperties(device, &qFamilyCount, 0);
@@ -142,11 +142,11 @@ queue_families find_queue_families(VkPhysicalDevice device, VkSurfaceKHR surface
     return families;
 }
 
-void retrive_queue_objects(device* device) {
+void retrive_queue_objects(Device* device) {
     vkGetDeviceQueue(device->logical, device->families.qIdx, 0, &device->families.queue);
 }
 
-void create_device(device* device, instance* instance, VkSurfaceKHR surface) {
+void create_device(Device* device, Instance* instance, VkSurfaceKHR surface) {
     device->families.qIdx = INVALID_IDX;
 
     device->physical = VK_NULL_HANDLE;
@@ -179,7 +179,7 @@ void create_device(device* device, instance* instance, VkSurfaceKHR surface) {
     };
 
 #ifdef _DEBUG
-    const char* layer[] = {LAYERNAME};
+    const char* layer[] = {DBG_LAYERNAME};
 
     info.enabledLayerCount = 1;
     info.ppEnabledLayerNames = layer;
@@ -191,6 +191,6 @@ void create_device(device* device, instance* instance, VkSurfaceKHR surface) {
     retrive_queue_objects(device);
 }
 
-void destroy_device(device* device) {
+void destroy_device(Device* device) {
     vkDestroyDevice(device->logical, 0);
 }

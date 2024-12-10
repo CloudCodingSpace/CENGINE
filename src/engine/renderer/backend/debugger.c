@@ -13,7 +13,7 @@ static VKAPI_ATTR VkBool32 VKAPI_CALL debugCallback(
         return VK_FALSE;
 }
 
-bool check_extensions()
+bool check_dbg_extensions()
 {
     uint32_t count = 0;
     vkEnumerateInstanceLayerProperties(&count, 0);
@@ -21,7 +21,7 @@ bool check_extensions()
     vkEnumerateInstanceLayerProperties(&count, props);
 
     for(uint32_t i = 0; i < count; i++) {
-        if(strcmp(LAYERNAME, props[i].layerName) == 0) {
+        if(strcmp(DBG_LAYERNAME, props[i].layerName) == 0) {
             free(props);
             return true;
         }
@@ -62,7 +62,7 @@ uint32_t get_debugger_exts_count()
     return count + 1;
 }
 
-void create_debugger(debugger *debugger, VkInstance instance)
+void create_debugger(Debugger *debugger, VkInstance instance)
 {
     VkDebugUtilsMessengerCreateInfoEXT info = get_debugger_info();
     PFN_vkCreateDebugUtilsMessengerEXT func = (PFN_vkCreateDebugUtilsMessengerEXT) vkGetInstanceProcAddr(instance, "vkCreateDebugUtilsMessengerEXT");
@@ -71,7 +71,7 @@ void create_debugger(debugger *debugger, VkInstance instance)
     }
 }
 
-void destroy_debugger(debugger *debugger, VkInstance instance)
+void destroy_debugger(Debugger *debugger, VkInstance instance)
 {
     PFN_vkDestroyDebugUtilsMessengerEXT func = (PFN_vkDestroyDebugUtilsMessengerEXT) vkGetInstanceProcAddr(instance, "vkDestroyDebugUtilsMessengerEXT");
     if(func) {

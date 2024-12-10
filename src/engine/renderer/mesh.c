@@ -1,6 +1,6 @@
 #include "mesh.h"
 
-void create_mesh(mesh* mesh, device* device, VkCommandPool* pool, vertex* vertices, uint32_t* indices, uint32_t vertexSize, uint32_t indSize) {
+void create_mesh(mesh* mesh, Device* device, VkCommandPool* pool, vertex* vertices, uint32_t* indices, uint32_t vertexSize, uint32_t indSize) {
     mesh->vertCount = indSize;
     VkDeviceSize vertSize = (VkDeviceSize) sizeof(vertices[0]) * vertexSize;
     VkDeviceSize indicesSize = (VkDeviceSize) sizeof(indices[0]) * indSize;
@@ -17,7 +17,7 @@ void render_mesh(mesh* mesh, VkCommandBuffer* buff) {
     vkCmdDrawIndexed(*buff, mesh->vertCount, 1, 0, 0, 0);
 }
 
-void destroy_mesh(mesh* mesh, device* device) {
+void destroy_mesh(mesh* mesh, Device* device) {
     destroy_buffer(&mesh->vertexbuff, device);
     destroy_buffer(&mesh->indBuff, device);
 }
