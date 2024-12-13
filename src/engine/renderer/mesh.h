@@ -1,18 +1,18 @@
 #pragma once
 
-#include "buffer.h"
+#include "Buffer.h"
 #include "vertex.h"
 
 #include <engine/utils.h>
 
 #include <vulkan/vulkan.h>
 
-typedef struct mesh {
-    buffer vertexbuff;
-    buffer indBuff;
+typedef struct {
+    Buffer vertexbuff;
+    Buffer indBuff;
     uint32_t vertCount;
-} mesh;
+} Mesh;
 
-void create_mesh(mesh* mesh, Device* device, VkCommandPool* pool, vertex* vertices, uint32_t* indices, uint32_t vertexSize, uint32_t indSize);
-void render_mesh(mesh* mesh, VkCommandBuffer* buff);
-void destroy_mesh(mesh* mesh, Device* device);
+void create_Mesh(Mesh* Mesh, Device* device, VkCommandPool* pool, Vertex* vertices, uint32_t* indices, uint32_t vertexSize, uint32_t indSize);
+void render_Mesh(Mesh* Mesh, VkCommandBuffer* buff);
+void destroy_Mesh(Mesh* Mesh, Device* device);

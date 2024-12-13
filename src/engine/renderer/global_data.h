@@ -2,7 +2,7 @@
 
 #include <cglm/cglm.h>
 
-typedef struct global_ubo_data {
+typedef struct {
     mat4 proj;
     mat4 view;
     mat4 model;

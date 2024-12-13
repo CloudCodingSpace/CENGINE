@@ -3,7 +3,7 @@
 VkVertexInputBindingDescription get_vertex_binding_desc() {
     VkVertexInputBindingDescription desc = {
         .binding = 0,
-        .stride = sizeof(vertex),
+        .stride = sizeof(Vertex),
         .inputRate = VK_VERTEX_INPUT_RATE_VERTEX
     };
 
@@ -18,14 +18,14 @@ void get_vertex_attrib_desc(VkVertexInputAttributeDescription* attribs, uint32_t
             .binding = 0,
             .format = VK_FORMAT_R32G32B32_SFLOAT,
             .location = 0,
-            .offset = offsetof(vertex, pos)
+            .offset = offsetof(Vertex, pos)
         };
 
         attribs[1] = (VkVertexInputAttributeDescription){
             .binding = 0,
             .format = VK_FORMAT_R32G32B32_SFLOAT,
             .location = 1,
-            .offset = offsetof(vertex, col)
+            .offset = offsetof(Vertex, col)
         };
     }
 }

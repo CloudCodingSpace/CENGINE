@@ -16,7 +16,7 @@ typedef struct {
     uint32_t imgCount;
     VkImage* imgs;
     VkImageView* imgViews;
-    image depthImg;
+    Image depthImg;
 
     VkSurfaceFormatKHR format;
     VkPresentModeKHR mode;

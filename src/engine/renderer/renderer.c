@@ -16,7 +16,7 @@ void renderer_initialize(Renderer* renderer, Window* window) {
     }
     // UBO stuff
     {
-        // Creating the uniform buffer
+        // Creating the uniform Buffer
         for(int i = 0; i < MAX_FRAMES_IN_FLIGHT; i++) {
             create_ubo(&renderer->ubo[i], &renderer->backend.device, sizeof(global_ubo_data));
             VK_CHECK(vkMapMemory(renderer->backend.device.logical, renderer->ubo[i].mem, 0, sizeof(global_ubo_data), 0, &(renderer->uboMemMapped[i])))
@@ -71,7 +71,7 @@ void renderer_initialize(Renderer* renderer, Window* window) {
     }
     // Rendering objects
     {
-        vertex vertices[] = {
+        Vertex vertices[] = {
             // Pos                  // Colors
             {{ 0.0f, -0.5f, 0.0f},  {1.0f, 0.0f, 0.0f}},
             {{ 0.5f,  0.5f, 0.0f},  {0.0f, 1.0f, 0.0f}},
@@ -83,7 +83,7 @@ void renderer_initialize(Renderer* renderer, Window* window) {
         };
 
         create_shader(&renderer->shader, SHADER_TYPE_GRAPHICS, &renderer->backend.device, &renderer->backend.pass, "shaders/default.vert.spv", "shaders/default.frag.spv", renderer->backend.sc.extent, VK_FRONT_FACE_COUNTER_CLOCKWISE, 1, &renderer->desc_layout);
-        create_mesh(&renderer->mesh, &renderer->backend.device, &renderer->cmdPool, vertices, indices, ARR_SIZE(vertices), ARR_SIZE(indices));
+        create_Mesh(&renderer->Mesh, &renderer->backend.device, &renderer->cmdPool, vertices, indices, ARR_SIZE(vertices), ARR_SIZE(indices));
     }
 }
 
@@ -127,7 +127,7 @@ void renderer_begin_frame(Renderer* renderer, Window* window) {
 }
 
 void renderer_record_render_cmds(Renderer* renderer, uint32_t imgIdx) {
-    // Code for initializing Vulkan for rendering or in other words actually recording render commands to a command buffer
+    // Code for initializing Vulkan for rendering or in other words actually recording render commands to a command Buffer
     {
         bcknd_begin_cmd_buff(&renderer->backend.device, &renderer->cmdBuffs[renderer->crntFrame]);
 
@@ -155,7 +155,7 @@ void renderer_record_render_cmds(Renderer* renderer, uint32_t imgIdx) {
     // Actual rendering commands for rendering and binding objects
     {
         bind_shader(&renderer->shader, &renderer->cmdBuffs[renderer->crntFrame], true, &renderer->desc_sets[renderer->crntFrame]);
-        render_mesh(&renderer->mesh, &renderer->cmdBuffs[renderer->crntFrame]);
+        render_Mesh(&renderer->Mesh, &renderer->cmdBuffs[renderer->crntFrame]);
     }
 
     end_renderpass(renderer->cmdBuffs[renderer->crntFrame]);
@@ -214,7 +214,7 @@ void renderer_shutdown(Renderer* renderer) {
     bcknd_destroy_desc_layout(&renderer->desc_layout, &renderer->backend.device);
     bcknd_destroy_desc_pool(&renderer->desc_pool, &renderer->backend.device);
 
-    destroy_mesh(&renderer->mesh, &renderer->backend.device);
+    destroy_Mesh(&renderer->Mesh, &renderer->backend.device);
     destroy_shader(&renderer->shader, &renderer->backend.device);
 
     for(int i = 0; i < MAX_FRAMES_IN_FLIGHT; i++) {

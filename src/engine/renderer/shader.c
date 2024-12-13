@@ -1,7 +1,7 @@
 #include "shader.h"
 
-void create_shader(shader* shader,
-               shader_type type, 
+void create_shader(Shader* shader,
+               ShaderType type, 
                Device* device,
                Renderpass*  pass, 
                const char* vertSpvPth, 
@@ -47,7 +47,7 @@ void create_shader(shader* shader,
     }
 }
 
-void bind_shader(shader* shader, VkCommandBuffer* buff, bool bindDesc, VkDescriptorSet* set) {
+void bind_shader(Shader* shader, VkCommandBuffer* buff, bool bindDesc, VkDescriptorSet* set) {
     VkPipelineBindPoint point;
     if(shader->type == SHADER_TYPE_GRAPHICS)
         point = VK_PIPELINE_BIND_POINT_GRAPHICS;
@@ -61,7 +61,7 @@ void bind_shader(shader* shader, VkCommandBuffer* buff, bool bindDesc, VkDescrip
     vkCmdBindPipeline(*buff, point, shader->pipeline);
 }
 
-void destroy_shader(shader* shader, Device* device) {
+void destroy_shader(Shader* shader, Device* device) {
     bcknd_destroy_shader_module(&shader->vertMod, device);
     bcknd_destroy_shader_module(&shader->fragMod, device);
     vkDestroyPipelineLayout(device->logical, shader->pipelineLayout, 0);

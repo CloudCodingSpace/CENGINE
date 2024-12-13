@@ -2,18 +2,18 @@
 
 #include <engine/utils.h>
 #include "device.h"
-#include "buffer.h"
+#include "Buffer.h"
 
 #include <vulkan/vulkan.h>
 
-typedef struct image {
+typedef struct {
     VkImage img;
     VkDeviceMemory imgMem;
     VkImageView view;
     VkFormat format;
-} image;
+} Image;
 
-void bcknd_create_image(image* img, 
+void bcknd_create_image(Image* img, 
         Device* device, 
         VkFormat format, 
         VkExtent3D extent, 
@@ -21,4 +21,4 @@ void bcknd_create_image(image* img,
         VkImageUsageFlags usage, 
         VkImageAspectFlagBits flags, 
         VkMemoryPropertyFlags memFlags);
-void bcknd_destroy_image(image* img, Device* device);
+void bcknd_destroy_image(Image* img, Device* device);

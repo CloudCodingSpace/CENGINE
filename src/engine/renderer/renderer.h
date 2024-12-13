@@ -28,15 +28,15 @@ typedef struct {
     VkFence inFlights[MAX_FRAMES_IN_FLIGHT];
 
     global_ubo_data uboDat;
-    buffer ubo[MAX_FRAMES_IN_FLIGHT];
+    Buffer ubo[MAX_FRAMES_IN_FLIGHT];
     void* uboMemMapped[MAX_FRAMES_IN_FLIGHT];
 
     VkDescriptorPool desc_pool;
     VkDescriptorSet desc_sets[MAX_FRAMES_IN_FLIGHT];
     VkDescriptorSetLayout desc_layout;
 
-    shader shader;
-    mesh mesh;
+    Shader shader;
+    Mesh Mesh;
 
     int crntFrame;
     uint32_t crntImgIdx;

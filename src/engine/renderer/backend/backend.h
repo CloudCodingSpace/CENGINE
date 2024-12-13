@@ -11,7 +11,7 @@
 #include "device.h"
 #include "debugger.h"
 #include "renderpass.h"
-#include "framebuffer.h"
+#include "frameBuffer.h"
 
 typedef struct {
 #ifdef _DEBUG

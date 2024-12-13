@@ -34,10 +34,10 @@
     "files.associations": {
         "image.h": "c",
         "renderer.h": "c",
-        "mesh.h": "c",
+        "Mesh.h": "c",
         "descriptor.h": "c",
         "vulkan.h": "c",
-        "buffer.h": "c",
+        "Buffer.h": "c",
         "vulkan_core.h": "c",
         "array": "c",
         "string_view": "c",
@@ -50,7 +50,7 @@
         "debugger.h": "c",
         "swapchain.h": "c",
         "renderpass.h": "c",
-        "framebuffer.h": "c"
+        "frameBuffer.h": "c"
     },
     "makefile.configureOnOpen": true
 }
