@@ -1,0 +1,284 @@
+[
+{
+  "directory": "F:/Dev/CENGINE/bin",
+  "command": "C:\\mingw64\\latest\\bin\\gcc.exe -D_CRT_SECURE_NO_WARNINGS @CMakeFiles/cengine.dir/includes_C.rsp -std=gnu2x -o CMakeFiles\\cengine.dir\\src\\engine\\engine.c.obj -c F:\\Dev\\CENGINE\\src\\engine\\engine.c",
+  "file": "F:/Dev/CENGINE/src/engine/engine.c",
+  "output": "CMakeFiles/cengine.dir/src/engine/engine.c.obj"
+},
+{
+  "directory": "F:/Dev/CENGINE/bin",
+  "command": "C:\\mingw64\\latest\\bin\\gcc.exe -D_CRT_SECURE_NO_WARNINGS @CMakeFiles/cengine.dir/includes_C.rsp -std=gnu2x -o CMakeFiles\\cengine.dir\\src\\engine\\logger.c.obj -c F:\\Dev\\CENGINE\\src\\engine\\logger.c",
+  "file": "F:/Dev/CENGINE/src/engine/logger.c",
+  "output": "CMakeFiles/cengine.dir/src/engine/logger.c.obj"
+},
+{
+  "directory": "F:/Dev/CENGINE/bin",
+  "command": "C:\\mingw64\\latest\\bin\\gcc.exe -D_CRT_SECURE_NO_WARNINGS @CMakeFiles/cengine.dir/includes_C.rsp -std=gnu2x -o CMakeFiles\\cengine.dir\\src\\engine\\renderer\\backend\\backend.c.obj -c F:\\Dev\\CENGINE\\src\\engine\\renderer\\backend\\backend.c",
+  "file": "F:/Dev/CENGINE/src/engine/renderer/backend/backend.c",
+  "output": "CMakeFiles/cengine.dir/src/engine/renderer/backend/backend.c.obj"
+},
+{
+  "directory": "F:/Dev/CENGINE/bin",
+  "command": "C:\\mingw64\\latest\\bin\\gcc.exe -D_CRT_SECURE_NO_WARNINGS @CMakeFiles/cengine.dir/includes_C.rsp -std=gnu2x -o CMakeFiles\\cengine.dir\\src\\engine\\renderer\\backend\\buffer.c.obj -c F:\\Dev\\CENGINE\\src\\engine\\renderer\\backend\\buffer.c",
+  "file": "F:/Dev/CENGINE/src/engine/renderer/backend/buffer.c",
+  "output": "CMakeFiles/cengine.dir/src/engine/renderer/backend/buffer.c.obj"
+},
+{
+  "directory": "F:/Dev/CENGINE/bin",
+  "command": "C:\\mingw64\\latest\\bin\\gcc.exe -D_CRT_SECURE_NO_WARNINGS @CMakeFiles/cengine.dir/includes_C.rsp -std=gnu2x -o CMakeFiles\\cengine.dir\\src\\engine\\renderer\\backend\\cmd.c.obj -c F:\\Dev\\CENGINE\\src\\engine\\renderer\\backend\\cmd.c",
+  "file": "F:/Dev/CENGINE/src/engine/renderer/backend/cmd.c",
+  "output": "CMakeFiles/cengine.dir/src/engine/renderer/backend/cmd.c.obj"
+},
+{
+  "directory": "F:/Dev/CENGINE/bin",
+  "command": "C:\\mingw64\\latest\\bin\\gcc.exe -D_CRT_SECURE_NO_WARNINGS @CMakeFiles/cengine.dir/includes_C.rsp -std=gnu2x -o CMakeFiles\\cengine.dir\\src\\engine\\renderer\\backend\\debugger.c.obj -c F:\\Dev\\CENGINE\\src\\engine\\renderer\\backend\\debugger.c",
+  "file": "F:/Dev/CENGINE/src/engine/renderer/backend/debugger.c",
+  "output": "CMakeFiles/cengine.dir/src/engine/renderer/backend/debugger.c.obj"
+},
+{
+  "directory": "F:/Dev/CENGINE/bin",
+  "command": "C:\\mingw64\\latest\\bin\\gcc.exe -D_CRT_SECURE_NO_WARNINGS @CMakeFiles/cengine.dir/includes_C.rsp -std=gnu2x -o CMakeFiles\\cengine.dir\\src\\engine\\renderer\\backend\\descriptor.c.obj -c F:\\Dev\\CENGINE\\src\\engine\\renderer\\backend\\descriptor.c",
+  "file": "F:/Dev/CENGINE/src/engine/renderer/backend/descriptor.c",
+  "output": "CMakeFiles/cengine.dir/src/engine/renderer/backend/descriptor.c.obj"
+},
+{
+  "directory": "F:/Dev/CENGINE/bin",
+  "command": "C:\\mingw64\\latest\\bin\\gcc.exe -D_CRT_SECURE_NO_WARNINGS @CMakeFiles/cengine.dir/includes_C.rsp -std=gnu2x -o CMakeFiles\\cengine.dir\\src\\engine\\renderer\\backend\\device.c.obj -c F:\\Dev\\CENGINE\\src\\engine\\renderer\\backend\\device.c",
+  "file": "F:/Dev/CENGINE/src/engine/renderer/backend/device.c",
+  "output": "CMakeFiles/cengine.dir/src/engine/renderer/backend/device.c.obj"
+},
+{
+  "directory": "F:/Dev/CENGINE/bin",
+  "command": "C:\\mingw64\\latest\\bin\\gcc.exe -D_CRT_SECURE_NO_WARNINGS @CMakeFiles/cengine.dir/includes_C.rsp -std=gnu2x -o CMakeFiles\\cengine.dir\\src\\engine\\renderer\\backend\\framebuffer.c.obj -c F:\\Dev\\CENGINE\\src\\engine\\renderer\\backend\\framebuffer.c",
+  "file": "F:/Dev/CENGINE/src/engine/renderer/backend/framebuffer.c",
+  "output": "CMakeFiles/cengine.dir/src/engine/renderer/backend/framebuffer.c.obj"
+},
+{
+  "directory": "F:/Dev/CENGINE/bin",
+  "command": "C:\\mingw64\\latest\\bin\\gcc.exe -D_CRT_SECURE_NO_WARNINGS @CMakeFiles/cengine.dir/includes_C.rsp -std=gnu2x -o CMakeFiles\\cengine.dir\\src\\engine\\renderer\\backend\\image.c.obj -c F:\\Dev\\CENGINE\\src\\engine\\renderer\\backend\\image.c",
+  "file": "F:/Dev/CENGINE/src/engine/renderer/backend/image.c",
+  "output": "CMakeFiles/cengine.dir/src/engine/renderer/backend/image.c.obj"
+},
+{
+  "directory": "F:/Dev/CENGINE/bin",
+  "command": "C:\\mingw64\\latest\\bin\\gcc.exe -D_CRT_SECURE_NO_WARNINGS @CMakeFiles/cengine.dir/includes_C.rsp -std=gnu2x -o CMakeFiles\\cengine.dir\\src\\engine\\renderer\\backend\\instance.c.obj -c F:\\Dev\\CENGINE\\src\\engine\\renderer\\backend\\instance.c",
+  "file": "F:/Dev/CENGINE/src/engine/renderer/backend/instance.c",
+  "output": "CMakeFiles/cengine.dir/src/engine/renderer/backend/instance.c.obj"
+},
+{
+  "directory": "F:/Dev/CENGINE/bin",
+  "command": "C:\\mingw64\\latest\\bin\\gcc.exe -D_CRT_SECURE_NO_WARNINGS @CMakeFiles/cengine.dir/includes_C.rsp -std=gnu2x -o CMakeFiles\\cengine.dir\\src\\engine\\renderer\\backend\\renderpass.c.obj -c F:\\Dev\\CENGINE\\src\\engine\\renderer\\backend\\renderpass.c",
+  "file": "F:/Dev/CENGINE/src/engine/renderer/backend/renderpass.c",
+  "output": "CMakeFiles/cengine.dir/src/engine/renderer/backend/renderpass.c.obj"
+},
+{
+  "directory": "F:/Dev/CENGINE/bin",
+  "command": "C:\\mingw64\\latest\\bin\\gcc.exe -D_CRT_SECURE_NO_WARNINGS @CMakeFiles/cengine.dir/includes_C.rsp -std=gnu2x -o CMakeFiles\\cengine.dir\\src\\engine\\renderer\\backend\\shader.c.obj -c F:\\Dev\\CENGINE\\src\\engine\\renderer\\backend\\shader.c",
+  "file": "F:/Dev/CENGINE/src/engine/renderer/backend/shader.c",
+  "output": "CMakeFiles/cengine.dir/src/engine/renderer/backend/shader.c.obj"
+},
+{
+  "directory": "F:/Dev/CENGINE/bin",
+  "command": "C:\\mingw64\\latest\\bin\\gcc.exe -D_CRT_SECURE_NO_WARNINGS @CMakeFiles/cengine.dir/includes_C.rsp -std=gnu2x -o CMakeFiles\\cengine.dir\\src\\engine\\renderer\\backend\\surface.c.obj -c F:\\Dev\\CENGINE\\src\\engine\\renderer\\backend\\surface.c",
+  "file": "F:/Dev/CENGINE/src/engine/renderer/backend/surface.c",
+  "output": "CMakeFiles/cengine.dir/src/engine/renderer/backend/surface.c.obj"
+},
+{
+  "directory": "F:/Dev/CENGINE/bin",
+  "command": "C:\\mingw64\\latest\\bin\\gcc.exe -D_CRT_SECURE_NO_WARNINGS @CMakeFiles/cengine.dir/includes_C.rsp -std=gnu2x -o CMakeFiles\\cengine.dir\\src\\engine\\renderer\\backend\\swapchain.c.obj -c F:\\Dev\\CENGINE\\src\\engine\\renderer\\backend\\swapchain.c",
+  "file": "F:/Dev/CENGINE/src/engine/renderer/backend/swapchain.c",
+  "output": "CMakeFiles/cengine.dir/src/engine/renderer/backend/swapchain.c.obj"
+},
+{
+  "directory": "F:/Dev/CENGINE/bin",
+  "command": "C:\\mingw64\\latest\\bin\\gcc.exe -D_CRT_SECURE_NO_WARNINGS @CMakeFiles/cengine.dir/includes_C.rsp -std=gnu2x -o CMakeFiles\\cengine.dir\\src\\engine\\renderer\\backend\\sync_objs.c.obj -c F:\\Dev\\CENGINE\\src\\engine\\renderer\\backend\\sync_objs.c",
+  "file": "F:/Dev/CENGINE/src/engine/renderer/backend/sync_objs.c",
+  "output": "CMakeFiles/cengine.dir/src/engine/renderer/backend/sync_objs.c.obj"
+},
+{
+  "directory": "F:/Dev/CENGINE/bin",
+  "command": "C:\\mingw64\\latest\\bin\\gcc.exe -D_CRT_SECURE_NO_WARNINGS @CMakeFiles/cengine.dir/includes_C.rsp -std=gnu2x -o CMakeFiles\\cengine.dir\\src\\engine\\renderer\\buffer.c.obj -c F:\\Dev\\CENGINE\\src\\engine\\renderer\\buffer.c",
+  "file": "F:/Dev/CENGINE/src/engine/renderer/buffer.c",
+  "output": "CMakeFiles/cengine.dir/src/engine/renderer/buffer.c.obj"
+},
+{
+  "directory": "F:/Dev/CENGINE/bin",
+  "command": "C:\\mingw64\\latest\\bin\\gcc.exe -D_CRT_SECURE_NO_WARNINGS @CMakeFiles/cengine.dir/includes_C.rsp -std=gnu2x -o CMakeFiles\\cengine.dir\\src\\engine\\renderer\\mesh.c.obj -c F:\\Dev\\CENGINE\\src\\engine\\renderer\\mesh.c",
+  "file": "F:/Dev/CENGINE/src/engine/renderer/mesh.c",
+  "output": "CMakeFiles/cengine.dir/src/engine/renderer/mesh.c.obj"
+},
+{
+  "directory": "F:/Dev/CENGINE/bin",
+  "command": "C:\\mingw64\\latest\\bin\\gcc.exe -D_CRT_SECURE_NO_WARNINGS @CMakeFiles/cengine.dir/includes_C.rsp -std=gnu2x -o CMakeFiles\\cengine.dir\\src\\engine\\renderer\\renderer.c.obj -c F:\\Dev\\CENGINE\\src\\engine\\renderer\\renderer.c",
+  "file": "F:/Dev/CENGINE/src/engine/renderer/renderer.c",
+  "output": "CMakeFiles/cengine.dir/src/engine/renderer/renderer.c.obj"
+},
+{
+  "directory": "F:/Dev/CENGINE/bin",
+  "command": "C:\\mingw64\\latest\\bin\\gcc.exe -D_CRT_SECURE_NO_WARNINGS @CMakeFiles/cengine.dir/includes_C.rsp -std=gnu2x -o CMakeFiles\\cengine.dir\\src\\engine\\renderer\\shader.c.obj -c F:\\Dev\\CENGINE\\src\\engine\\renderer\\shader.c",
+  "file": "F:/Dev/CENGINE/src/engine/renderer/shader.c",
+  "output": "CMakeFiles/cengine.dir/src/engine/renderer/shader.c.obj"
+},
+{
+  "directory": "F:/Dev/CENGINE/bin",
+  "command": "C:\\mingw64\\latest\\bin\\gcc.exe -D_CRT_SECURE_NO_WARNINGS @CMakeFiles/cengine.dir/includes_C.rsp -std=gnu2x -o CMakeFiles\\cengine.dir\\src\\engine\\renderer\\vertex.c.obj -c F:\\Dev\\CENGINE\\src\\engine\\renderer\\vertex.c",
+  "file": "F:/Dev/CENGINE/src/engine/renderer/vertex.c",
+  "output": "CMakeFiles/cengine.dir/src/engine/renderer/vertex.c.obj"
+},
+{
+  "directory": "F:/Dev/CENGINE/bin",
+  "command": "C:\\mingw64\\latest\\bin\\gcc.exe -D_CRT_SECURE_NO_WARNINGS @CMakeFiles/cengine.dir/includes_C.rsp -std=gnu2x -o CMakeFiles\\cengine.dir\\src\\engine\\utils.c.obj -c F:\\Dev\\CENGINE\\src\\engine\\utils.c",
+  "file": "F:/Dev/CENGINE/src/engine/utils.c",
+  "output": "CMakeFiles/cengine.dir/src/engine/utils.c.obj"
+},
+{
+  "directory": "F:/Dev/CENGINE/bin",
+  "command": "C:\\mingw64\\latest\\bin\\gcc.exe -D_CRT_SECURE_NO_WARNINGS @CMakeFiles/cengine.dir/includes_C.rsp -std=gnu2x -o CMakeFiles\\cengine.dir\\src\\engine\\window\\window.c.obj -c F:\\Dev\\CENGINE\\src\\engine\\window\\window.c",
+  "file": "F:/Dev/CENGINE/src/engine/window/window.c",
+  "output": "CMakeFiles/cengine.dir/src/engine/window/window.c.obj"
+},
+{
+  "directory": "F:/Dev/CENGINE/bin",
+  "command": "C:\\mingw64\\latest\\bin\\gcc.exe -D_CRT_SECURE_NO_WARNINGS @CMakeFiles/cengine.dir/includes_C.rsp -std=gnu2x -o CMakeFiles\\cengine.dir\\src\\main.c.obj -c F:\\Dev\\CENGINE\\src\\main.c",
+  "file": "F:/Dev/CENGINE/src/main.c",
+  "output": "CMakeFiles/cengine.dir/src/main.c.obj"
+},
+{
+  "directory": "F:/Dev/CENGINE/bin/libs/glfw/src",
+  "command": "C:\\mingw64\\latest\\bin\\gcc.exe -DUNICODE -DWINVER=0x0501 -D_GLFW_WIN32 -D_UNICODE @CMakeFiles/glfw.dir/includes_C.rsp -std=c99 -Wall -o CMakeFiles\\glfw.dir\\context.c.obj -c F:\\Dev\\CENGINE\\libs\\glfw\\src\\context.c",
+  "file": "F:/Dev/CENGINE/libs/glfw/src/context.c",
+  "output": "libs/glfw/src/CMakeFiles/glfw.dir/context.c.obj"
+},
+{
+  "directory": "F:/Dev/CENGINE/bin/libs/glfw/src",
+  "command": "C:\\mingw64\\latest\\bin\\gcc.exe -DUNICODE -DWINVER=0x0501 -D_GLFW_WIN32 -D_UNICODE @CMakeFiles/glfw.dir/includes_C.rsp -std=c99 -Wall -o CMakeFiles\\glfw.dir\\init.c.obj -c F:\\Dev\\CENGINE\\libs\\glfw\\src\\init.c",
+  "file": "F:/Dev/CENGINE/libs/glfw/src/init.c",
+  "output": "libs/glfw/src/CMakeFiles/glfw.dir/init.c.obj"
+},
+{
+  "directory": "F:/Dev/CENGINE/bin/libs/glfw/src",
+  "command": "C:\\mingw64\\latest\\bin\\gcc.exe -DUNICODE -DWINVER=0x0501 -D_GLFW_WIN32 -D_UNICODE @CMakeFiles/glfw.dir/includes_C.rsp -std=c99 -Wall -o CMakeFiles\\glfw.dir\\input.c.obj -c F:\\Dev\\CENGINE\\libs\\glfw\\src\\input.c",
+  "file": "F:/Dev/CENGINE/libs/glfw/src/input.c",
+  "output": "libs/glfw/src/CMakeFiles/glfw.dir/input.c.obj"
+},
+{
+  "directory": "F:/Dev/CENGINE/bin/libs/glfw/src",
+  "command": "C:\\mingw64\\latest\\bin\\gcc.exe -DUNICODE -DWINVER=0x0501 -D_GLFW_WIN32 -D_UNICODE @CMakeFiles/glfw.dir/includes_C.rsp -std=c99 -Wall -o CMakeFiles\\glfw.dir\\monitor.c.obj -c F:\\Dev\\CENGINE\\libs\\glfw\\src\\monitor.c",
+  "file": "F:/Dev/CENGINE/libs/glfw/src/monitor.c",
+  "output": "libs/glfw/src/CMakeFiles/glfw.dir/monitor.c.obj"
+},
+{
+  "directory": "F:/Dev/CENGINE/bin/libs/glfw/src",
+  "command": "C:\\mingw64\\latest\\bin\\gcc.exe -DUNICODE -DWINVER=0x0501 -D_GLFW_WIN32 -D_UNICODE @CMakeFiles/glfw.dir/includes_C.rsp -std=c99 -Wall -o CMakeFiles\\glfw.dir\\platform.c.obj -c F:\\Dev\\CENGINE\\libs\\glfw\\src\\platform.c",
+  "file": "F:/Dev/CENGINE/libs/glfw/src/platform.c",
+  "output": "libs/glfw/src/CMakeFiles/glfw.dir/platform.c.obj"
+},
+{
+  "directory": "F:/Dev/CENGINE/bin/libs/glfw/src",
+  "command": "C:\\mingw64\\latest\\bin\\gcc.exe -DUNICODE -DWINVER=0x0501 -D_GLFW_WIN32 -D_UNICODE @CMakeFiles/glfw.dir/includes_C.rsp -std=c99 -Wall -o CMakeFiles\\glfw.dir\\vulkan.c.obj -c F:\\Dev\\CENGINE\\libs\\glfw\\src\\vulkan.c",
+  "file": "F:/Dev/CENGINE/libs/glfw/src/vulkan.c",
+  "output": "libs/glfw/src/CMakeFiles/glfw.dir/vulkan.c.obj"
+},
+{
+  "directory": "F:/Dev/CENGINE/bin/libs/glfw/src",
+  "command": "C:\\mingw64\\latest\\bin\\gcc.exe -DUNICODE -DWINVER=0x0501 -D_GLFW_WIN32 -D_UNICODE @CMakeFiles/glfw.dir/includes_C.rsp -std=c99 -Wall -o CMakeFiles\\glfw.dir\\window.c.obj -c F:\\Dev\\CENGINE\\libs\\glfw\\src\\window.c",
+  "file": "F:/Dev/CENGINE/libs/glfw/src/window.c",
+  "output": "libs/glfw/src/CMakeFiles/glfw.dir/window.c.obj"
+},
+{
+  "directory": "F:/Dev/CENGINE/bin/libs/glfw/src",
+  "command": "C:\\mingw64\\latest\\bin\\gcc.exe -DUNICODE -DWINVER=0x0501 -D_GLFW_WIN32 -D_UNICODE @CMakeFiles/glfw.dir/includes_C.rsp -std=c99 -Wall -o CMakeFiles\\glfw.dir\\egl_context.c.obj -c F:\\Dev\\CENGINE\\libs\\glfw\\src\\egl_context.c",
+  "file": "F:/Dev/CENGINE/libs/glfw/src/egl_context.c",
+  "output": "libs/glfw/src/CMakeFiles/glfw.dir/egl_context.c.obj"
+},
+{
+  "directory": "F:/Dev/CENGINE/bin/libs/glfw/src",
+  "command": "C:\\mingw64\\latest\\bin\\gcc.exe -DUNICODE -DWINVER=0x0501 -D_GLFW_WIN32 -D_UNICODE @CMakeFiles/glfw.dir/includes_C.rsp -std=c99 -Wall -o CMakeFiles\\glfw.dir\\osmesa_context.c.obj -c F:\\Dev\\CENGINE\\libs\\glfw\\src\\osmesa_context.c",
+  "file": "F:/Dev/CENGINE/libs/glfw/src/osmesa_context.c",
+  "output": "libs/glfw/src/CMakeFiles/glfw.dir/osmesa_context.c.obj"
+},
+{
+  "directory": "F:/Dev/CENGINE/bin/libs/glfw/src",
+  "command": "C:\\mingw64\\latest\\bin\\gcc.exe -DUNICODE -DWINVER=0x0501 -D_GLFW_WIN32 -D_UNICODE @CMakeFiles/glfw.dir/includes_C.rsp -std=c99 -Wall -o CMakeFiles\\glfw.dir\\null_init.c.obj -c F:\\Dev\\CENGINE\\libs\\glfw\\src\\null_init.c",
+  "file": "F:/Dev/CENGINE/libs/glfw/src/null_init.c",
+  "output": "libs/glfw/src/CMakeFiles/glfw.dir/null_init.c.obj"
+},
+{
+  "directory": "F:/Dev/CENGINE/bin/libs/glfw/src",
+  "command": "C:\\mingw64\\latest\\bin\\gcc.exe -DUNICODE -DWINVER=0x0501 -D_GLFW_WIN32 -D_UNICODE @CMakeFiles/glfw.dir/includes_C.rsp -std=c99 -Wall -o CMakeFiles\\glfw.dir\\null_monitor.c.obj -c F:\\Dev\\CENGINE\\libs\\glfw\\src\\null_monitor.c",
+  "file": "F:/Dev/CENGINE/libs/glfw/src/null_monitor.c",
+  "output": "libs/glfw/src/CMakeFiles/glfw.dir/null_monitor.c.obj"
+},
+{
+  "directory": "F:/Dev/CENGINE/bin/libs/glfw/src",
+  "command": "C:\\mingw64\\latest\\bin\\gcc.exe -DUNICODE -DWINVER=0x0501 -D_GLFW_WIN32 -D_UNICODE @CMakeFiles/glfw.dir/includes_C.rsp -std=c99 -Wall -o CMakeFiles\\glfw.dir\\null_window.c.obj -c F:\\Dev\\CENGINE\\libs\\glfw\\src\\null_window.c",
+  "file": "F:/Dev/CENGINE/libs/glfw/src/null_window.c",
+  "output": "libs/glfw/src/CMakeFiles/glfw.dir/null_window.c.obj"
+},
+{
+  "directory": "F:/Dev/CENGINE/bin/libs/glfw/src",
+  "command": "C:\\mingw64\\latest\\bin\\gcc.exe -DUNICODE -DWINVER=0x0501 -D_GLFW_WIN32 -D_UNICODE @CMakeFiles/glfw.dir/includes_C.rsp -std=c99 -Wall -o CMakeFiles\\glfw.dir\\null_joystick.c.obj -c F:\\Dev\\CENGINE\\libs\\glfw\\src\\null_joystick.c",
+  "file": "F:/Dev/CENGINE/libs/glfw/src/null_joystick.c",
+  "output": "libs/glfw/src/CMakeFiles/glfw.dir/null_joystick.c.obj"
+},
+{
+  "directory": "F:/Dev/CENGINE/bin/libs/glfw/src",
+  "command": "C:\\mingw64\\latest\\bin\\gcc.exe -DUNICODE -DWINVER=0x0501 -D_GLFW_WIN32 -D_UNICODE @CMakeFiles/glfw.dir/includes_C.rsp -std=c99 -Wall -o CMakeFiles\\glfw.dir\\win32_module.c.obj -c F:\\Dev\\CENGINE\\libs\\glfw\\src\\win32_module.c",
+  "file": "F:/Dev/CENGINE/libs/glfw/src/win32_module.c",
+  "output": "libs/glfw/src/CMakeFiles/glfw.dir/win32_module.c.obj"
+},
+{
+  "directory": "F:/Dev/CENGINE/bin/libs/glfw/src",
+  "command": "C:\\mingw64\\latest\\bin\\gcc.exe -DUNICODE -DWINVER=0x0501 -D_GLFW_WIN32 -D_UNICODE @CMakeFiles/glfw.dir/includes_C.rsp -std=c99 -Wall -o CMakeFiles\\glfw.dir\\win32_time.c.obj -c F:\\Dev\\CENGINE\\libs\\glfw\\src\\win32_time.c",
+  "file": "F:/Dev/CENGINE/libs/glfw/src/win32_time.c",
+  "output": "libs/glfw/src/CMakeFiles/glfw.dir/win32_time.c.obj"
+},
+{
+  "directory": "F:/Dev/CENGINE/bin/libs/glfw/src",
+  "command": "C:\\mingw64\\latest\\bin\\gcc.exe -DUNICODE -DWINVER=0x0501 -D_GLFW_WIN32 -D_UNICODE @CMakeFiles/glfw.dir/includes_C.rsp -std=c99 -Wall -o CMakeFiles\\glfw.dir\\win32_thread.c.obj -c F:\\Dev\\CENGINE\\libs\\glfw\\src\\win32_thread.c",
+  "file": "F:/Dev/CENGINE/libs/glfw/src/win32_thread.c",
+  "output": "libs/glfw/src/CMakeFiles/glfw.dir/win32_thread.c.obj"
+},
+{
+  "directory": "F:/Dev/CENGINE/bin/libs/glfw/src",
+  "command": "C:\\mingw64\\latest\\bin\\gcc.exe -DUNICODE -DWINVER=0x0501 -D_GLFW_WIN32 -D_UNICODE @CMakeFiles/glfw.dir/includes_C.rsp -std=c99 -Wall -o CMakeFiles\\glfw.dir\\win32_init.c.obj -c F:\\Dev\\CENGINE\\libs\\glfw\\src\\win32_init.c",
+  "file": "F:/Dev/CENGINE/libs/glfw/src/win32_init.c",
+  "output": "libs/glfw/src/CMakeFiles/glfw.dir/win32_init.c.obj"
+},
+{
+  "directory": "F:/Dev/CENGINE/bin/libs/glfw/src",
+  "command": "C:\\mingw64\\latest\\bin\\gcc.exe -DUNICODE -DWINVER=0x0501 -D_GLFW_WIN32 -D_UNICODE @CMakeFiles/glfw.dir/includes_C.rsp -std=c99 -Wall -o CMakeFiles\\glfw.dir\\win32_joystick.c.obj -c F:\\Dev\\CENGINE\\libs\\glfw\\src\\win32_joystick.c",
+  "file": "F:/Dev/CENGINE/libs/glfw/src/win32_joystick.c",
+  "output": "libs/glfw/src/CMakeFiles/glfw.dir/win32_joystick.c.obj"
+},
+{
+  "directory": "F:/Dev/CENGINE/bin/libs/glfw/src",
+  "command": "C:\\mingw64\\latest\\bin\\gcc.exe -DUNICODE -DWINVER=0x0501 -D_GLFW_WIN32 -D_UNICODE @CMakeFiles/glfw.dir/includes_C.rsp -std=c99 -Wall -o CMakeFiles\\glfw.dir\\win32_monitor.c.obj -c F:\\Dev\\CENGINE\\libs\\glfw\\src\\win32_monitor.c",
+  "file": "F:/Dev/CENGINE/libs/glfw/src/win32_monitor.c",
+  "output": "libs/glfw/src/CMakeFiles/glfw.dir/win32_monitor.c.obj"
+},
+{
+  "directory": "F:/Dev/CENGINE/bin/libs/glfw/src",
+  "command": "C:\\mingw64\\latest\\bin\\gcc.exe -DUNICODE -DWINVER=0x0501 -D_GLFW_WIN32 -D_UNICODE @CMakeFiles/glfw.dir/includes_C.rsp -std=c99 -Wall -o CMakeFiles\\glfw.dir\\win32_window.c.obj -c F:\\Dev\\CENGINE\\libs\\glfw\\src\\win32_window.c",
+  "file": "F:/Dev/CENGINE/libs/glfw/src/win32_window.c",
+  "output": "libs/glfw/src/CMakeFiles/glfw.dir/win32_window.c.obj"
+},
+{
+  "directory": "F:/Dev/CENGINE/bin/libs/glfw/src",
+  "command": "C:\\mingw64\\latest\\bin\\gcc.exe -DUNICODE -DWINVER=0x0501 -D_GLFW_WIN32 -D_UNICODE @CMakeFiles/glfw.dir/includes_C.rsp -std=c99 -Wall -o CMakeFiles\\glfw.dir\\wgl_context.c.obj -c F:\\Dev\\CENGINE\\libs\\glfw\\src\\wgl_context.c",
+  "file": "F:/Dev/CENGINE/libs/glfw/src/wgl_context.c",
+  "output": "libs/glfw/src/CMakeFiles/glfw.dir/wgl_context.c.obj"
+},
+{
+  "directory": "F:/Dev/CENGINE/bin/libs/stb",
+  "command": "C:\\mingw64\\latest\\bin\\gcc.exe  @CMakeFiles/stb.dir/includes_C.rsp -std=gnu2x -o CMakeFiles\\stb.dir\\stb.c.obj -c F:\\Dev\\CENGINE\\libs\\stb\\stb.c",
+  "file": "F:/Dev/CENGINE/libs/stb/stb.c",
+  "output": "libs/stb/CMakeFiles/stb.dir/stb.c.obj"
+},
+{
+  "directory": "F:/Dev/CENGINE/bin/libs/tinyobjloader",
+  "command": "C:\\mingw64\\latest\\bin\\gcc.exe  @CMakeFiles/tinyobj.dir/includes_C.rsp -std=gnu2x -o CMakeFiles\\tinyobj.dir\\src.c.obj -c F:\\Dev\\CENGINE\\libs\\tinyobjloader\\src.c",
+  "file": "F:/Dev/CENGINE/libs/tinyobjloader/src.c",
+  "output": "libs/tinyobjloader/CMakeFiles/tinyobj.dir/src.c.obj"
+}
+]

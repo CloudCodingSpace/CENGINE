@@ -24,6 +24,12 @@ elseif(CMAKE_COMPILER_IS_GNUCXX)
     set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 endif()
 
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+  add_compile_definitions(_DEBUG)
+elseif(CMAKE_BUILD_TYPE STREQUAL "Release")
+  add_compile_definitions(NDEBUG)
+endif()
+
 find_package(Vulkan REQUIRED)
 
 add_subdirectory(libs/glfw)

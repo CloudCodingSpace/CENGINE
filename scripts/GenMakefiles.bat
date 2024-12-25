@@ -9,7 +9,7 @@ if not exist bin (
 
 pushd bin
 
-cmake -S .. -B . -G "MinGW Makefiles" -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_MAKE_PROGRAM=make
+cmake -S .. -B . -G "MinGW Makefiles" -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_MAKE_PROGRAM=make -DCMAKE_BUILD_TYPE=Deb
 cmake --build . --parallel
 copy compile_commands.json ..
 

@@ -121,7 +121,6 @@ QueueFamilies find_queue_families(VkPhysicalDevice device, VkSurfaceKHR surface)
 
     for(uint32_t i = 0; i < qFamilyCount; i++) {
         if(props[i].queueFlags & VK_QUEUE_GRAPHICS_BIT) {
-            families.qIdx = i;
             graphicsSupported = VK_TRUE;
         }
 
@@ -133,8 +132,12 @@ QueueFamilies find_queue_families(VkPhysicalDevice device, VkSurfaceKHR surface)
         }
 
         if(present && graphicsSupported && transferSupported) {
+            families.qIdx = i;
             break;
         }
+
+        graphicsSupported = false;
+        transferSupported = false;
     }
 
     free(props);
