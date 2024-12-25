@@ -7,4 +7,3 @@ CENGINE is a simple vulkan renderer written in pure C. It is written for experie
 - Can be built in only windows using the **build.bat** file.
 - Uses **GLFW** library for windowing and **Vulkan** as the selected graphics API
 - Uses **gcc** to build the entire project
-- Currently is **under development** and the **debug mode is activated** in the build.bat file
