@@ -7,6 +7,8 @@
 #include "backend/sync_objs.h"
 #include "backend/descriptor.h"
 
+#include "../camera.h"
+
 #include "global_data.h"
 
 #include "shader.h"
@@ -44,8 +46,8 @@ typedef struct {
 
 void renderer_initialize(Renderer* renderer, Window* window);
 void renderer_update(Renderer* renderer);
-void renderer_begin_frame(Renderer* renderer, Window* window);
+void renderer_begin_frame(Renderer* renderer, Window* window, Camera* camera);
 void renderer_record_render_cmds(Renderer* renderer, uint32_t imgIdx);
-void renderer_render(Renderer* renderer, Window* window);
+void renderer_render(Renderer* renderer, Window* window, Camera* camera);
 void renderer_end_frame(Renderer* renderer, Window* window);
 void renderer_shutdown(Renderer* renderer);

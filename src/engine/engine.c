@@ -7,15 +7,27 @@ void engine_initialize(Engine *engine) {
     window_initialize(&engine->window);
 
     renderer_initialize(&engine->renderer, &engine->window);
+
+    camera_init(&engine->camera, 90, ((float)engine->window.width)/((float)engine->window.height), 0.1f, 1000.0f);
+
+    engine->deltaTime = 0.0f;
+    engine->startTime = 0.0f;
 }
 
 void engine_update(Engine *engine) {
+    {
+        float endTime = glfwGetTime();
+        engine->deltaTime = endTime - engine->startTime;
+        engine->startTime = endTime;
+    }
+
+    camera_update(&engine->camera, engine->window.window, engine->deltaTime);
     window_update(&engine->window);
     renderer_update(&engine->renderer);
 }
 
 void engine_render(Engine *engine) {
-    renderer_render(&engine->renderer, &engine->window);
+    renderer_render(&engine->renderer, &engine->window, &engine->camera);
 }
 
 void engine_run(Engine *engine) {

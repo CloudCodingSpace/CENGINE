@@ -28,7 +28,6 @@
     "files.autoSave": "off",
     "terminal.integrated.cursorStyleInactive": "line",
     "workbench.iconTheme": "material-icon-theme",
-    "workbench.colorTheme": "One Dark Pro",
     "editor.cursorStyle": "block",
     "editor.cursorBlinking": "smooth",
     "files.associations": {

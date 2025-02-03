@@ -2,6 +2,7 @@
 
 #include "renderer/renderer.h"
 #include "window/window.h"
+#include "Camera.h"
 
 #include "utils.h"
 
@@ -10,6 +11,10 @@
 typedef struct {
     Window window;
     Renderer renderer;
+    Camera camera;
+
+    float deltaTime;
+    float startTime;
 } Engine;
 
 void engine_initialize(Engine* engine);

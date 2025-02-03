@@ -73,16 +73,16 @@ void renderer_initialize(Renderer* renderer, Window* window) {
     {
         Vertex vertices[] = {
             // Pos                  // Colors
-            {{ 0.0f, -0.5f, 0.0f},  {1.0f, 0.0f, 0.0f}},
-            {{ 0.5f,  0.5f, 0.0f},  {0.0f, 1.0f, 0.0f}},
-            {{-0.5f,  0.5f, 0.0f},  {0.0f, 0.0f, 1.0f}}
+            {{ 0.0f,  0.5f, 0.0f},  {1.0f, 0.0f, 0.0f}},
+            {{ 0.5f, -0.5f, 0.0f},  {0.0f, 1.0f, 0.0f}},
+            {{-0.5f, -0.5f, 0.0f},  {0.0f, 0.0f, 1.0f}}
         };
 
         uint32_t indices[] = {
             0, 1, 2
         };
 
-        create_shader(&renderer->shader, SHADER_TYPE_GRAPHICS, &renderer->backend.device, &renderer->backend.pass, "shaders/default.vert.spv", "shaders/default.frag.spv", renderer->backend.sc.extent, VK_FRONT_FACE_COUNTER_CLOCKWISE, 1, &renderer->desc_layout);
+        create_shader(&renderer->shader, SHADER_TYPE_GRAPHICS, &renderer->backend.device, &renderer->backend.pass, "shaders/default.vert.spv", "shaders/default.frag.spv", renderer->backend.sc.extent, VK_FRONT_FACE_CLOCKWISE, 1, &renderer->desc_layout);
         create_Mesh(&renderer->Mesh, &renderer->backend.device, &renderer->cmdPool, vertices, indices, ARR_SIZE(vertices), ARR_SIZE(indices));
     }
 }
@@ -91,7 +91,7 @@ void renderer_update(Renderer* renderer) {
     
 }
 
-void renderer_begin_frame(Renderer* renderer, Window* window) {
+void renderer_begin_frame(Renderer* renderer, Window* window, Camera* camera) {
     VK_CHECK(vkWaitForFences(renderer->backend.device.logical, 1, &renderer->inFlights[renderer->crntFrame], VK_TRUE, UINT64_MAX))
     VK_CHECK(vkResetFences(renderer->backend.device.logical, 1, &renderer->inFlights[renderer->crntFrame]))
 
@@ -112,9 +112,8 @@ void renderer_begin_frame(Renderer* renderer, Window* window) {
         glm_mat4_identity(data.view);
         glm_mat4_identity(data.proj);
 
-        glm_rotate(data.model, glfwGetTime() * glm_rad(90.0f), (vec3){0.0f, 0.0f, 1.0f});
-        glm_lookat((vec3){2.0f, 2.0f, 2.0f}, (vec3){0.0f, 0.0f, 0.0f}, (vec3){0.0f, 0.0f, 1.0f}, data.view);
-        glm_perspective(glm_rad(90.0f), renderer->backend.sc.extent.width / (float) renderer->backend.sc.extent.height, 0.1f, 100.0f, data.proj);
+        glm_mat4_copy(camera->view, data.view);
+        glm_mat4_copy(camera->projection, data.proj);
 
         data.proj[1][1] *= -1.0f;
 
@@ -162,8 +161,8 @@ void renderer_record_render_cmds(Renderer* renderer, uint32_t imgIdx) {
     bcknd_end_cmd_buff(&renderer->cmdBuffs[renderer->crntFrame]);
 }
 
-void renderer_render(Renderer* renderer, Window* window) {
-    renderer_begin_frame(renderer, window);
+void renderer_render(Renderer* renderer, Window* window, Camera* camera) {
+    renderer_begin_frame(renderer, window, camera);
     renderer_record_render_cmds(renderer, renderer->crntImgIdx);
     renderer_end_frame(renderer, window);
 
